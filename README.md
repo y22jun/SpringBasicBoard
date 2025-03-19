@@ -17,6 +17,7 @@
   - 기능에 유의미한 변경이 있는 경우
 - Docs: READEME.md 와 같은 문서 수정 시 사용
 - Setting: 프로젝트 설정, bulid.gradle, 인프라 관련 등 설정 파일에 대한 변경이 있는 경우
+  
 ex) Setting: jpa 엔티티 기본 세팅, Chore: 불필요한 import 제거
 
 ### 규칙
