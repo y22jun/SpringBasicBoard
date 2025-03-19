@@ -83,3 +83,4 @@ ex) Setting: jpa 엔티티 기본 세팅, Chore: 불필요한 import 제거
 15. 댓글 CRUD
 
 ### ERD
+<img width="550" alt="Image" src="https://github.com/user-attachments/assets/2e7af7db-3ea6-447f-90a0-8bae7540f006" />
