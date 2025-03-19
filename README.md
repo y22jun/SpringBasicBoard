@@ -81,3 +81,5 @@ ex) Setting: jpa 엔티티 기본 세팅, Chore: 불필요한 import 제거
 13. 게시판 저장 기능
 14. 게시판 저장 조회 기능
 15. 댓글 CRUD
+
+### ERD
