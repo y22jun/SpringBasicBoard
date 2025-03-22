@@ -7,10 +7,14 @@ import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
+import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +55,13 @@ public class BoardService {
         validateDeleteForbidden(board, member);
 
         boardRepository.delete(board);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardInfoResponse> getBoards() {
+        return boardRepository.findAll().stream()
+                .map(BoardInfoResponse::from)
+                .collect(Collectors.toList());
     }
 
     private void validateUpdateForbidden(Board board, Member member) {

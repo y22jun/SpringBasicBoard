@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotFoundException;
+import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,5 +25,9 @@ public class BoardRepositoryImpl implements BoardRepository {
 
     public void delete(Board board) {
         boardJpaRepository.delete(board);
+    }
+
+    public List<Board> findAll() {
+        return boardJpaRepository.findAll();
     }
 }
