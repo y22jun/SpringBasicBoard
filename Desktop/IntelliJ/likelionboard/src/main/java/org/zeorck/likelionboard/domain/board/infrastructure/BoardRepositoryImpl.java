@@ -3,6 +3,7 @@ package org.zeorck.likelionboard.domain.board.infrastructure;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.zeorck.likelionboard.domain.board.domain.Board;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotFoundException;
 
 @Repository
 @RequiredArgsConstructor
@@ -12,5 +13,10 @@ public class BoardRepositoryImpl implements BoardRepository {
 
     public void save(Board board) {
         boardJpaRepository.save(board);
+    }
+
+    public Board findByBoardId(Long boardId) {
+        return boardJpaRepository.findById(boardId)
+                .orElseThrow(BoardNotFoundException::new);
     }
 }

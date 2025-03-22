@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.zeorck.likelionboard.common.domain.BaseTimeEntity;
+import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 
 @Entity
@@ -21,10 +22,8 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
     private String content;
 
     private Integer views;
