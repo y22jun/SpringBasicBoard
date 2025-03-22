@@ -5,7 +5,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.zeorck.likelionboard.common.domain.BaseTimeEntity;
+import org.zeorck.likelionboard.domain.member.presentation.exception.EmailOrPasswordNotInvalidException;
 
 @Entity
 @Getter
@@ -36,4 +38,11 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickname;
     }
 
+
+    public boolean checkPassword(PasswordEncoder passwordEncoder, String password) {
+        if (!passwordEncoder.matches(password, this.password)) {
+            throw new EmailOrPasswordNotInvalidException();
+        }
+        return true;
+    }
 }
