@@ -18,8 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Long memberId = Long.valueOf(username);
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + memberId));
+        Member member = memberRepository.findById(memberId);
 
         return new CustomUserDetails(member.getId());
     }

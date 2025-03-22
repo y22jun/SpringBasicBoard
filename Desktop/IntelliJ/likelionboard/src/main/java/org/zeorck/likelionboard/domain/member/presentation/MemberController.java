@@ -3,11 +3,10 @@ package org.zeorck.likelionboard.domain.member.presentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
+import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
 
 @RestController
@@ -21,5 +20,11 @@ public class MemberController {
     public ResponseEntity<?> save(@RequestBody MemberSaveResponse memberSaveResponse) {
         memberService.save(memberSaveResponse);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{memberId}")
+    public ResponseEntity<?> update(@MemberId Long memberId, @RequestBody MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
+        memberService.updateNickname(memberId, memberNicknameUpdateResponse);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -3,10 +3,12 @@ package org.zeorck.likelionboard.domain.member.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 import org.zeorck.likelionboard.domain.member.presentation.exception.EmailAlreadyExistsException;
 import org.zeorck.likelionboard.domain.member.presentation.exception.NicknameAlreadyExistsException;
+import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
 
 @Service
@@ -26,6 +28,16 @@ public class MemberService {
                 .build();
 
         memberRepository.save(member);
+    }
+
+    @Transactional
+    public void updateNickname(Long memberId, MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
+        Member member = getMemberId(memberId);
+        member.updateNickname(memberNicknameUpdateResponse.nickname());
+    }
+
+    public Member getMemberId(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
     public Member findByEmail(String email) {

@@ -19,8 +19,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findById(Long userId) {
-        return memberJpaRepository.findById(userId);
+    public Member findById(Long memberId) {
+        return memberJpaRepository.findById(memberId)
+                .orElseThrow(MemberNotFoundException::new);
     }
 
     @Override
