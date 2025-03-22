@@ -19,4 +19,8 @@ public class BoardRepositoryImpl implements BoardRepository {
         return boardJpaRepository.findById(boardId)
                 .orElseThrow(BoardNotFoundException::new);
     }
+
+    public void delete(Board board) {
+        boardJpaRepository.delete(board);
+    }
 }

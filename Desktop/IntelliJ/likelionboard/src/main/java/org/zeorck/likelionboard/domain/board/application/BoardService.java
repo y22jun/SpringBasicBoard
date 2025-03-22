@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -44,9 +45,23 @@ public class BoardService {
         }
     }
 
+    public void delete(Long memberId, Long boardId) {
+        Member member = memberService.getMemberId(memberId);
+        Board board = boardRepository.findByBoardId(boardId);
+        validateDeleteForbidden(board, member);
+
+        boardRepository.delete(board);
+    }
+
     private void validateUpdateForbidden(Board board, Member member) {
         if (!board.getMember().getId().equals(member.getId())) {
             throw new BoardUpdateForbidden();
+        }
+    }
+
+    private void validateDeleteForbidden(Board board, Member member) {
+        if (!board.getMember().getId().equals(member.getId())) {
+            throw new BoardDeleteForbidden();
         }
     }
 

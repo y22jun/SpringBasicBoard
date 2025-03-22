@@ -29,4 +29,12 @@ public class BoardController {
         boardService.update(memberId, boardId, boardUpdateResponse);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("{boardId}")
+    public ResponseEntity<?> delete(@PathVariable Long boardId,
+                                    @MemberId Long memberId) {
+        boardService.delete(memberId, boardId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

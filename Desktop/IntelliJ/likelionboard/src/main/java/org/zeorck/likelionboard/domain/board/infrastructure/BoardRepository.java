@@ -7,4 +7,6 @@ public interface BoardRepository {
     void save(Board board);
 
     Board findByBoardId(Long boardId);
+
+    void delete(Board board);
 }
