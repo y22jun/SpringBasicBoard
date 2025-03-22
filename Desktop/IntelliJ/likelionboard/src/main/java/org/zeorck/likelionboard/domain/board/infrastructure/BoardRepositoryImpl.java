@@ -33,4 +33,10 @@ public class BoardRepositoryImpl implements BoardRepository {
     public Page<Board> findAll(Pageable pageable) {
         return boardJpaRepository.findAll(pageable);
     }
+
+    @Override
+    public int updateViews(Long id) {
+        return boardJpaRepository.updateViews(id);
+    }
+
 }

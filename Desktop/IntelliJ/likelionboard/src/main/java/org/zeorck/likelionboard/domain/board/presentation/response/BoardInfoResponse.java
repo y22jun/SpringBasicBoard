@@ -8,14 +8,16 @@ public record BoardInfoResponse(
         Long boardId,
         String nickname,
         String title,
-        String content
+        String content,
+        int views
 ) {
     public static BoardInfoResponse from(Board board) {
         return new BoardInfoResponse(
                 board.getId(),
                 board.getMember().getNickname(),
                 board.getTitle(),
-                board.getContent()
+                board.getContent(),
+                board.getViews()
         );
     }
 }

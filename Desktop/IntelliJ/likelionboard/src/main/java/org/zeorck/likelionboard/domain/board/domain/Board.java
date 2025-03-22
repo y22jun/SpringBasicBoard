@@ -26,10 +26,11 @@ public class Board extends BaseTimeEntity {
 
     private String content;
 
-    private Integer views;
+    @Column(columnDefinition = "integer default 0")
+    private int views;
 
     @Builder
-    public Board(Member member, String title, String content, Integer views) {
+    public Board(Member member, String title, String content, int views) {
         this.member = member;
         this.title = title;
         this.content = content;

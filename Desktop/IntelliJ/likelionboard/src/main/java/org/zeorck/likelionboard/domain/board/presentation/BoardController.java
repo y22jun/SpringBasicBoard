@@ -20,6 +20,12 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    @GetMapping("/{boardId}")
+    public ResponseEntity<BoardInfoResponse> getBoard(@PathVariable Long boardId) {
+        BoardInfoResponse boardInfoResponse = boardService.getBoardInfo(boardId);
+        return ResponseEntity.ok(boardInfoResponse);
+    }
+
     @GetMapping
     public ResponseEntity<PageableResponse<BoardInfoResponse>> getBoards(
             @RequestParam(defaultValue = "0") int page,

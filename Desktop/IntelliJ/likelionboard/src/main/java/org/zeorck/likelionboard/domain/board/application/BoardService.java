@@ -59,6 +59,14 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
+    @Transactional
+    public BoardInfoResponse getBoardInfo(Long id) {
+        Board board = boardRepository.findByBoardId(id);
+        boardRepository.updateViews(id);
+
+        return BoardInfoResponse.from(board);
+    }
+
     @Transactional(readOnly = true)
     public PageableResponse<BoardInfoResponse> getBoards(Pageable pageable) {
         Page<Board> boardPage = boardRepository.findAll(pageable);
