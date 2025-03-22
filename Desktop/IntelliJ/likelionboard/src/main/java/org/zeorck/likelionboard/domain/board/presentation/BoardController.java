@@ -1,10 +1,13 @@
 package org.zeorck.likelionboard.domain.board.presentation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
+import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
@@ -21,8 +24,12 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public ResponseEntity<List<BoardInfoResponse>> getBoards() {
-        List<BoardInfoResponse> boardResponses = boardService.getBoards();
+    public ResponseEntity<PageableResponse<BoardInfoResponse>> getBoards(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        PageableResponse<BoardInfoResponse> boardResponses = boardService.getBoards(pageable);
         return ResponseEntity.ok(boardResponses);
     }
 

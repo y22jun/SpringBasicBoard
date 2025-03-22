@@ -1,6 +1,8 @@
 package org.zeorck.likelionboard.domain.board.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotFoundException;
@@ -27,7 +29,8 @@ public class BoardRepositoryImpl implements BoardRepository {
         boardJpaRepository.delete(board);
     }
 
-    public List<Board> findAll() {
-        return boardJpaRepository.findAll();
+    @Override
+    public Page<Board> findAll(Pageable pageable) {
+        return boardJpaRepository.findAll(pageable);
     }
 }

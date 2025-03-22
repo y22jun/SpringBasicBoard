@@ -1,9 +1,8 @@
 package org.zeorck.likelionboard.domain.board.infrastructure;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.zeorck.likelionboard.domain.board.domain.Board;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
-
-import java.util.List;
 
 public interface BoardRepository {
 
@@ -13,6 +12,6 @@ public interface BoardRepository {
 
     void delete(Board board);
 
-    List<Board> findAll();
+    Page<Board> findAll(Pageable pageable);
 
 }
