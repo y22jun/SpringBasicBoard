@@ -10,4 +10,6 @@ public interface HeartRepository {
 
     Heart findByMemberAndBoard(Member member, Board board);
 
+    int countByBoardAndStatusTrue(Board board);
+
 }

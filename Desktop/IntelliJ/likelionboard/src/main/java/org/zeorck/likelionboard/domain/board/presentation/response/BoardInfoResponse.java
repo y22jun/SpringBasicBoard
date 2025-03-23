@@ -9,15 +9,17 @@ public record BoardInfoResponse(
         String nickname,
         String title,
         String content,
-        int views
+        int views,
+        int heartCount
 ) {
-    public static BoardInfoResponse from(Board board) {
+    public static BoardInfoResponse from(Board board, int heartCount) {
         return new BoardInfoResponse(
                 board.getId(),
                 board.getMember().getNickname(),
                 board.getTitle(),
                 board.getContent(),
-                board.getViews()
+                board.getViews(),
+                heartCount
         );
     }
 }

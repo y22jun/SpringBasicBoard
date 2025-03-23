@@ -22,4 +22,9 @@ public class HeartRepositoryImpl implements HeartRepository{
         return heartJpeRepository.findByMemberAndBoard(member, board);
     }
 
+    @Override
+    public int countByBoardAndStatusTrue(Board board) {
+        return heartJpeRepository.countByBoardAndStatusTrue(board);
+    }
+
 }
