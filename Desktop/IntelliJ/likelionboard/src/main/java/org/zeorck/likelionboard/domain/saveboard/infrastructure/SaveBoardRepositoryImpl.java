@@ -1,6 +1,8 @@
 package org.zeorck.likelionboard.domain.saveboard.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.member.domain.Member;
@@ -25,6 +27,11 @@ public class SaveBoardRepositoryImpl implements SaveBoardRepository {
     @Override
     public void deleteByMemberAndBoard(Member member, Board board) {
         saveBoardJpaRepository.deleteByMemberAndBoard(member, board);
+    }
+
+    @Override
+    public Page<SaveBoard> findByMember(Member member, Pageable pageable) {
+        return saveBoardJpaRepository.findByMember(member, pageable);
     }
 
 }
