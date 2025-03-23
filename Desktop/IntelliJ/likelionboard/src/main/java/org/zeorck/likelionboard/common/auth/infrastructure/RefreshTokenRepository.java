@@ -11,4 +11,6 @@ public interface RefreshTokenRepository {
     void save(RefreshToken refreshToken);
 
     Optional<RefreshToken> findByMemberId(Long id);
+
+    void deleteByMemberId(Long memberId);
 }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.auth.application.AuthService;
 import org.zeorck.likelionboard.common.auth.domain.jwt.LoginResult;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberLoginRequest;
@@ -19,6 +20,15 @@ public class LoginController {
     public ResponseEntity<LoginResult> login(@RequestBody MemberLoginRequest memberLoginRequest) {
         LoginResult result = authService.login(memberLoginRequest.email(), memberLoginRequest.password());
         return ResponseEntity.ok(result);
+    }
+
+    //TODO: /members/logout -> logout으로 변경해보기. 아마도 SecurityConfig에서 설정을 해보자.
+    //TODO: null vs delete 알아보기
+    //TODO: LogoutHandler 알아보기
+    @PostMapping("/members/logout")
+    public ResponseEntity<Void> logout(@MemberId Long memberId) {
+        authService.logout(memberId);
+        return ResponseEntity.ok().build();
     }
 
 }

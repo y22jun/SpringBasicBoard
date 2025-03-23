@@ -30,6 +30,11 @@ public class AuthService {
         return generateLoginResult(member);
     }
 
+    @Transactional
+    public void logout(Long memberId) {
+        refreshTokenRepository.deleteByMemberId(memberId);
+    }
+
     private LoginResult generateLoginResult(Member member) {
         String accessToken = tokenGenerator.generateAccessToken(member.getId());
         String refreshToken = tokenGenerator.generateRefreshToken(member.getId());

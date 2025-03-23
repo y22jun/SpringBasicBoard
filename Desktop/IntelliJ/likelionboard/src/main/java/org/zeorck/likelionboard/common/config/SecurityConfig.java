@@ -23,13 +23,12 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
 
     private final JwtTokenFilter jwtTokenFilter;
-    private final SecurityProperties securityProperties;
-//    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     private static final String[] PERMIT_ALL_PATTERNS = {
             "/swagger-ui/**",
             "/actuator/**",
             "/v3/api-docs/**",
+            "/swagger-ui.html",
             "/members/save",
             "/login"
     };
