@@ -21,4 +21,9 @@ public class CommentRepositoryImpl implements CommentRepository {
         return commentJpaRepository.findById(commentId)
                 .orElseThrow(CommentNotFoundException::new);
     }
+
+    @Override
+    public void delete(Comment comment) {
+        commentJpaRepository.delete(comment);
+    }
 }

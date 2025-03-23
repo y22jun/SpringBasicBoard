@@ -29,6 +29,13 @@ public class CommentController {
                                   @PathVariable("commentId") Long commentId,
                                   @RequestBody CommentUpdateResponse commentUpdateResponse) {
         commentService.update(memberId, commentId, commentUpdateResponse);
-        return new ResponseEntity<>(commentUpdateResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(commentUpdateResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<?> delete(@MemberId Long memberId,
+                                    @PathVariable("commentId") Long commentId) {
+        commentService.delete(memberId, commentId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

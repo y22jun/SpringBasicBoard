@@ -41,4 +41,13 @@ public class CommentService {
 
         comment.updateContent(commentUpdateResponse.content());
     }
+
+    public void delete(Long memberId, Long commentId) {
+        Member member = memberService.getMemberId(memberId);
+
+        Comment comment = commentRepository.findById(commentId);
+
+        commentRepository.delete(comment);
+    }
+
 }
