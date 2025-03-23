@@ -39,7 +39,7 @@ public class BoardService {
     @Transactional
     public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
         Member member = memberService.getMemberId(memberId);
-        Board board = boardRepository.findByBoardId(boardId);
+        Board board = getBoardId(boardId);
         validateUpdateForbidden(board, member);
 
         if (boardUpdateResponse.title() != null) {
@@ -53,7 +53,7 @@ public class BoardService {
 
     public void delete(Long memberId, Long boardId) {
         Member member = memberService.getMemberId(memberId);
-        Board board = boardRepository.findByBoardId(boardId);
+        Board board = getBoardId(boardId);
         validateDeleteForbidden(board, member);
 
         boardRepository.delete(board);
@@ -61,7 +61,7 @@ public class BoardService {
 
     @Transactional
     public BoardInfoResponse getBoardInfo(Long id) {
-        Board board = boardRepository.findByBoardId(id);
+        Board board = getBoardId(id);
         boardRepository.updateViews(id);
 
         return BoardInfoResponse.from(board);
@@ -76,6 +76,10 @@ public class BoardService {
                 .toList();
 
         return PageableResponse.of(pageable, boardResponses);
+    }
+
+    public Board getBoardId(Long boardId) {
+        return boardRepository.findByBoardId(boardId);
     }
 
     private void validateUpdateForbidden(Board board, Member member) {
