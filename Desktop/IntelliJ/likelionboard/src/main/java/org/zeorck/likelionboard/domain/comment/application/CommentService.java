@@ -7,10 +7,13 @@ import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
+import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +51,16 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId);
 
         commentRepository.delete(comment);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentInfoResponse> getCommentsByBoardId(Long boardId) {
+        Board board = boardService.getBoardId(boardId);
+        List<Comment> comments = commentRepository.findByBoard(board);
+
+        return comments.stream()
+                .map(CommentInfoResponse::from)
+                .toList();
     }
 
 }

@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.comment.application.CommentService;
+import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/comments")
@@ -17,25 +20,36 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{boardId}")
-    public ResponseEntity<?> save(@MemberId Long memberId,
-                                  @PathVariable("boardId") Long boardId,
-                                  @RequestBody CommentSaveResponse commentSaveResponse) {
+    public ResponseEntity<?> save(
+            @MemberId Long memberId,
+            @PathVariable("boardId") Long boardId,
+            @RequestBody CommentSaveResponse commentSaveResponse) {
         commentService.save(memberId, boardId, commentSaveResponse);
         return new ResponseEntity<>(commentSaveResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/{commentId}")
-    public ResponseEntity<?> update(@MemberId Long memberId,
-                                  @PathVariable("commentId") Long commentId,
-                                  @RequestBody CommentUpdateResponse commentUpdateResponse) {
+    public ResponseEntity<?> update(
+            @MemberId Long memberId,
+            @PathVariable("commentId") Long commentId,
+            @RequestBody CommentUpdateResponse commentUpdateResponse) {
         commentService.update(memberId, commentId, commentUpdateResponse);
         return new ResponseEntity<>(commentUpdateResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<?> delete(@MemberId Long memberId,
-                                    @PathVariable("commentId") Long commentId) {
+    public ResponseEntity<?> delete(
+            @MemberId Long memberId,
+            @PathVariable("commentId") Long commentId) {
         commentService.delete(memberId, commentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/{boardId}")
+    public ResponseEntity<List<CommentInfoResponse>> getCommentsByBoardId(
+            @PathVariable("boardId") Long boardId) {
+        List<CommentInfoResponse> comments = commentService.getCommentsByBoardId(boardId);
+        return ResponseEntity.ok(comments);
+    }
+
 }
