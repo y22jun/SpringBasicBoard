@@ -39,10 +39,9 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public boolean checkPassword(PasswordEncoder passwordEncoder, String password) {
+    public void checkPassword(PasswordEncoder passwordEncoder, String password) {
         if (!passwordEncoder.matches(password, this.password)) {
             throw new EmailOrPasswordNotInvalidException();
         }
-        return true;
     }
 }

@@ -1,5 +1,6 @@
 package org.zeorck.likelionboard.common.auth.presentation;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,10 @@ public class LoginController {
 
     private final AuthService authService;
 
+    //TODO: AuthService login 로직에 쿠키 로직 넣지말고 LoginSuccessHandler 클래스 만들어서 분리하기.
     @PostMapping("/login")
-    public ResponseEntity<LoginResult> login(@RequestBody MemberLoginRequest memberLoginRequest) {
-        LoginResult result = authService.login(memberLoginRequest.email(), memberLoginRequest.password());
+    public ResponseEntity<LoginResult> login(@RequestBody MemberLoginRequest memberLoginRequest, HttpServletResponse response) {
+        LoginResult result = authService.login(memberLoginRequest.email(), memberLoginRequest.password(), response);
         return ResponseEntity.ok(result);
     }
 

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsUtils;
@@ -44,7 +45,7 @@ public class SecurityConfig {
         configureSessionManagement(httpSecurity);
         configureCorsPolicy(httpSecurity);
         configureApiAuthorization(httpSecurity);
-        configureOAuth2Login(httpSecurity);
+        configureLogin(httpSecurity);
         configureContentSecurityPolicy(httpSecurity);
 
         return httpSecurity.build();
@@ -82,7 +83,7 @@ public class SecurityConfig {
         );
     }
 
-    private void configureOAuth2Login(HttpSecurity http) throws Exception {
+    private void configureLogin(HttpSecurity http) throws Exception {
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
