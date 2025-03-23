@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.heart.application.HeartService;
 
 @RestController
+@RequestMapping("/hearts")
 @RequiredArgsConstructor
 public class HeartController {
 
