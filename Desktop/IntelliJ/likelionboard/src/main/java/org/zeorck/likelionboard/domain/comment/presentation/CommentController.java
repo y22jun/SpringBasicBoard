@@ -7,19 +7,28 @@ import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.comment.application.CommentService;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
 
 @RestController
-@RequestMapping("/comments/{boardId}")
+@RequestMapping("/comments")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping
+    @PostMapping("/{boardId}")
     public ResponseEntity<?> save(@MemberId Long memberId,
                                   @PathVariable("boardId") Long boardId,
                                   @RequestBody CommentSaveResponse commentSaveResponse) {
         commentService.save(memberId, boardId, commentSaveResponse);
         return new ResponseEntity<>(commentSaveResponse, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{commentId}")
+    public ResponseEntity<?> update(@MemberId Long memberId,
+                                  @PathVariable("commentId") Long commentId,
+                                  @RequestBody CommentUpdateResponse commentUpdateResponse) {
+        commentService.update(memberId, commentId, commentUpdateResponse);
+        return new ResponseEntity<>(commentUpdateResponse, HttpStatus.CREATED);
     }
 }
