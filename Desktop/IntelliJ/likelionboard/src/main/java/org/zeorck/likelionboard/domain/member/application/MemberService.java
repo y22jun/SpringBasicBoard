@@ -40,10 +40,6 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    public Member findByEmail(String email) {
-        return memberRepository.findByEmail(email);
-    }
-
     public void validateSignUp(MemberSaveResponse memberSaveResponse) {
         validateEmail(memberSaveResponse.email());
         validateNickname(memberSaveResponse.nickname());

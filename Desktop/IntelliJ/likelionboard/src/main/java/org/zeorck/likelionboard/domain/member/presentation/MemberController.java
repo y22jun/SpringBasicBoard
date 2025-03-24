@@ -37,4 +37,5 @@ public class MemberController {
         memberService.updateNickname(memberId, memberNicknameUpdateResponse);
         return new ResponseEntity<>(memberNicknameUpdateResponse, HttpStatus.OK);
     }
+
 }
