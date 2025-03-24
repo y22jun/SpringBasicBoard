@@ -23,8 +23,7 @@ public class HeartController {
 
     // TODO: 상태코드 생각해보기.
     @Operation(
-            summary = "게시글 좋아요 추가 / 삭제",
-            description = "토글 방식으로 게시글 좋아요 추가 / 삭제를 합니다.")
+            summary = "게시글 좋아요 추가 / 삭제", description = "토글 방식으로 게시글 좋아요 추가 / 삭제를 합니다.")
     @ApiResponse(responseCode = "200")
     @PostMapping("/{boardId}")
     public ResponseEntity<?> addLike(
