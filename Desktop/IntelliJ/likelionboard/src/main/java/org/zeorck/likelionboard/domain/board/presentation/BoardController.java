@@ -1,5 +1,8 @@
 package org.zeorck.likelionboard.domain.board.presentation;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,16 +19,21 @@ import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateRe
 @RestController
 @RequestMapping("/boards")
 @RequiredArgsConstructor
+@Tag(name = "게시판", description = "게시판 관리 API")
 public class BoardController {
 
     private final BoardService boardService;
 
+    @Operation(summary = "특정 게시글 조회", description = "특정 게시글을 조회합니다.")
+    @ApiResponse(responseCode = "200")
     @GetMapping("/{boardId}")
     public ResponseEntity<BoardInfoResponse> getBoard(@PathVariable Long boardId) {
         BoardInfoResponse boardInfoResponse = boardService.getBoardInfo(boardId);
-        return ResponseEntity.ok(boardInfoResponse);
+        return new ResponseEntity<>(boardInfoResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "전체 게시글 조회", description = "전체 게시글을 조회합니다.")
+    @ApiResponse(responseCode = "200")
     @GetMapping
     public ResponseEntity<PageableResponse<BoardInfoResponse>> getBoards(
             @RequestParam(defaultValue = "0") int page,
@@ -33,28 +41,38 @@ public class BoardController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageableResponse<BoardInfoResponse> boardResponses = boardService.getBoards(pageable);
-        return ResponseEntity.ok(boardResponses);
+        return new ResponseEntity<>(boardResponses, HttpStatus.OK);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> save(@MemberId Long memberId, @RequestBody BoardSaveResponse boardSaveResponse) {
+    @Operation(summary = "게시글 저장", description = "게시글을 저장합니다.")
+    @ApiResponse(responseCode = "201")
+    @PostMapping
+    public ResponseEntity<?> save(
+            @MemberId Long memberId,
+            @RequestBody BoardSaveResponse boardSaveResponse) {
         boardService.save(memberId, boardSaveResponse);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(boardSaveResponse, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "특정 게시글 수정", description = "특정 게시글을 수정합니다.")
+    @ApiResponse(responseCode = "200")
     @PatchMapping("{boardId}")
-    public ResponseEntity<?> update(@PathVariable Long boardId,
-                                    @MemberId Long memberId,
-                                    @RequestBody BoardUpdateResponse boardUpdateResponse) {
+    public ResponseEntity<?> update(
+            @PathVariable Long boardId,
+            @MemberId Long memberId,
+            @RequestBody BoardUpdateResponse boardUpdateResponse) {
         boardService.update(memberId, boardId, boardUpdateResponse);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(boardUpdateResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "특정 게시글 삭제", description = "특정 게시글을 삭제합니다.")
+    @ApiResponse(responseCode = "204")
     @DeleteMapping("{boardId}")
-    public ResponseEntity<?> delete(@PathVariable Long boardId,
-                                    @MemberId Long memberId) {
+    public ResponseEntity<?> delete(
+            @PathVariable Long boardId,
+            @MemberId Long memberId) {
         boardService.delete(memberId, boardId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
