@@ -7,6 +7,8 @@ import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
+import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentDeleteForbidden;
+import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentUpdateForbidden;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
@@ -39,16 +41,18 @@ public class CommentService {
     @Transactional
     public void update(Long memberId, Long commentId, CommentUpdateResponse commentUpdateResponse) {
         Member member = memberService.getMemberId(memberId);
-
         Comment comment = commentRepository.findById(commentId);
+
+        validateUpdateForbidden(comment, member);
 
         comment.updateContent(commentUpdateResponse.content());
     }
 
     public void delete(Long memberId, Long commentId) {
         Member member = memberService.getMemberId(memberId);
-
         Comment comment = commentRepository.findById(commentId);
+
+        validateDeleteForbidden(comment, member);
 
         commentRepository.delete(comment);
     }
@@ -61,6 +65,18 @@ public class CommentService {
         return comments.stream()
                 .map(CommentInfoResponse::from)
                 .toList();
+    }
+
+    private void validateUpdateForbidden(Comment comment, Member member) {
+        if (!comment.getMember().getId().equals(member.getId())) {
+            throw new CommentUpdateForbidden();
+        }
+    }
+
+    private void validateDeleteForbidden(Comment comment, Member member) {
+        if (!comment.getMember().getId().equals(member.getId())) {
+            throw new CommentDeleteForbidden();
+        }
     }
 
 }
