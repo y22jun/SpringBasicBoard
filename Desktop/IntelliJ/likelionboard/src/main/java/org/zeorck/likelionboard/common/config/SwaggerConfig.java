@@ -73,6 +73,9 @@ public class SwaggerConfig {
     private String getDescription() {
         return format("""
 				BasicBoard API 입니다.\n\n
+				로그인 성공을 하면\n\n
+				쿠키에 엑세스 토큰이 저장이 되며\n\n
+				별다른 절차 없이 API를 사용할 수 있습니다.\n\n
 				""",
                 getLoginUrlByProfile("local"), getLoginUrlByProfile("local")
         );
