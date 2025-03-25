@@ -32,13 +32,8 @@ public class MemberService {
 
     @Transactional
     public void updateNickname(Long memberId, MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
-        Member member = getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
         member.updateNickname(memberNicknameUpdateResponse.nickname());
-    }
-
-    //각 service에서 다 구현해주자
-    public Member getMemberId(Long memberId) {
-        return memberRepository.findById(memberId);
     }
 
     public void validateSignUp(MemberSaveResponse memberSaveResponse) {
