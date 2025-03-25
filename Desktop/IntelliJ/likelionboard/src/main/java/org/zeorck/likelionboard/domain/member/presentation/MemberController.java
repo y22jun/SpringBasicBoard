@@ -34,7 +34,7 @@ public class MemberController {
     @PutMapping
     public ResponseEntity<?> update(
             @MemberId Long memberId,
-            @RequestBody MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
+            @Valid @RequestBody MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
         memberService.updateNickname(memberId, memberNicknameUpdateResponse);
         return new ResponseEntity<>(memberNicknameUpdateResponse, HttpStatus.OK);
     }

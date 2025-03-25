@@ -12,5 +12,6 @@ public record MemberSaveResponse(
         String password,
 
         @NotBlank(message = "닉네임은 필수 입력사항 입니다.")
-        String nickname) {
+        String nickname
+) {
 }
