@@ -29,7 +29,7 @@ public class Heart extends BaseTimeEntity {
     private boolean status;
 
     @Builder
-    public Heart(Member member, Board board, boolean status) {
+    private Heart(Member member, Board board, boolean status) {
         this.member = member;
         this.board = board;
         this.status = status;

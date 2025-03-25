@@ -27,7 +27,7 @@ public class SaveBoard extends BaseTimeEntity {
     private Board board;
 
     @Builder
-    public SaveBoard(Member member, Board board) {
+    private SaveBoard(Member member, Board board) {
         this.member = member;
         this.board = board;
     }

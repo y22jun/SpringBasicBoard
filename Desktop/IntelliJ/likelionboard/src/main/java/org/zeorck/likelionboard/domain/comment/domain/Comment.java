@@ -29,7 +29,7 @@ public class Comment extends BaseTimeEntity {
     private String content;
 
     @Builder
-    public Comment(Member member, Board board, String content) {
+    private Comment(Member member, Board board, String content) {
         this.member = member;
         this.board = board;
         this.content = content;
