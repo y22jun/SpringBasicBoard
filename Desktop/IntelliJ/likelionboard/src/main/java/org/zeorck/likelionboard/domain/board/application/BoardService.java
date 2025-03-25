@@ -83,7 +83,9 @@ public class BoardService {
 
     @Transactional
     public void increaseViewCount(Long boardId) {
-        boardRepository.updateViews(boardId);
+        Board board = getBoardId(boardId);
+
+        board.incrementViews(board.getViews());
     }
 
     private Board getBoardId(Long boardId) {
