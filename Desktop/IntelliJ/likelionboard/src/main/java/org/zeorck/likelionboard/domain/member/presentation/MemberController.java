@@ -3,6 +3,7 @@ package org.zeorck.likelionboard.domain.member.presentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class MemberController {
     @Operation(summary = "회원가입", description = "회원가입을 합니다.")
     @ApiResponse(responseCode = "201")
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody MemberSaveResponse memberSaveResponse) {
+    public ResponseEntity<?> save(@Valid @RequestBody MemberSaveResponse memberSaveResponse) {
         memberService.save(memberSaveResponse);
         return new ResponseEntity<>(memberSaveResponse, HttpStatus.CREATED);
     }
