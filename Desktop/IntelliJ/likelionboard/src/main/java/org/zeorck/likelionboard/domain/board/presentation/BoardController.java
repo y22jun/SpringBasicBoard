@@ -3,6 +3,7 @@ package org.zeorck.likelionboard.domain.board.presentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +50,8 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<?> save(
             @MemberId Long memberId,
-            @RequestBody BoardSaveResponse boardSaveResponse) {
+            @Valid @RequestBody BoardSaveResponse boardSaveResponse
+    ) {
         boardService.save(memberId, boardSaveResponse);
         return new ResponseEntity<>(boardSaveResponse, HttpStatus.CREATED);
     }
