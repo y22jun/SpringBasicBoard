@@ -36,7 +36,7 @@ public class MemberService {
         member.updateNickname(memberNicknameUpdateResponse.nickname());
     }
 
-    public void validateSignUp(MemberSaveResponse memberSaveResponse) {
+    private void validateSignUp(MemberSaveResponse memberSaveResponse) {
         validateEmail(memberSaveResponse.email());
         validateNickname(memberSaveResponse.nickname());
     }
