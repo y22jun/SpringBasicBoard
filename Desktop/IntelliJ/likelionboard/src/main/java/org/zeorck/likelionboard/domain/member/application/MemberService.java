@@ -36,6 +36,7 @@ public class MemberService {
         member.updateNickname(memberNicknameUpdateResponse.nickname());
     }
 
+    //각 service에서 다 구현해주자
     public Member getMemberId(Long memberId) {
         return memberRepository.findById(memberId);
     }

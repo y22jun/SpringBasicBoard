@@ -23,6 +23,8 @@ public class HeartService {
         Board board = boardService.getBoardId(boardId);
         Member member = memberService.getMemberId(memberId);
 
+        //exists
+        //JPA 메서드마다 성능차이 알아보기
         Heart existingHeart = heartRepository.findByMemberAndBoard(member, board);
 
         if (existingHeart == null) {

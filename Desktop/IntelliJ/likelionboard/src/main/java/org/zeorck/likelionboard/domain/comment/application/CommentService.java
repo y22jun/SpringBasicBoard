@@ -45,6 +45,7 @@ public class CommentService {
 
         validateUpdateForbidden(comment, member);
 
+        //null 체크 추가
         comment.updateContent(commentUpdateResponse.content());
     }
 
@@ -67,6 +68,7 @@ public class CommentService {
                 .toList();
     }
 
+    //member를 넘겨줄 이유가 없다.
     private void validateUpdateForbidden(Comment comment, Member member) {
         if (!comment.getMember().getId().equals(member.getId())) {
             throw new CommentUpdateForbidden();

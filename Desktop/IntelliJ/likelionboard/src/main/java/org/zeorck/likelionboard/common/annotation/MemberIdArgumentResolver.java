@@ -10,6 +10,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.util.Optional;
 
+//resolver로 들어가자
 public class MemberIdArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override

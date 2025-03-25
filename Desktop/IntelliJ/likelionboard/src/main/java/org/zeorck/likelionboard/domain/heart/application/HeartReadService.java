@@ -16,4 +16,5 @@ public class HeartReadService {
     public int getHeartCountByBoard(Board board) {
         return heartRepository.countByBoardAndStatusTrue(board);
     }
+
 }

@@ -7,6 +7,7 @@ import org.zeorck.likelionboard.common.annotation.MemberIdArgumentResolver;
 
 import java.util.List;
 
+//resolver로 빼자
 @Configuration
 public class MemberIdArgumentResolverConfig implements WebMvcConfigurer {
 

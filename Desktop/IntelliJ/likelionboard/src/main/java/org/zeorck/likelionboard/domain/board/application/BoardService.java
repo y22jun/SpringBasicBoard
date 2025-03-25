@@ -44,6 +44,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
         validateUpdateForbidden(board, member);
 
+        //entity에서 검증을 해보자
         if (boardUpdateResponse.title() != null) {
             board.updateTitle(boardUpdateResponse.title());
         }
@@ -61,6 +62,7 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
+    //view관련 메서드 따로 생성하자
     @Transactional
     public BoardInfoResponse getBoardInfo(Long id) {
         Board board = getBoardId(id);
@@ -85,6 +87,7 @@ public class BoardService {
         return PageableResponse.of(pageable, boardResponses);
     }
 
+    //private으로 사용하자
     public Board getBoardId(Long boardId) {
         return boardRepository.findByBoardId(boardId);
     }

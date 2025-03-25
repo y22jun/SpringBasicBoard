@@ -26,10 +26,12 @@ public class SaveBoardService {
     private final BoardService boardService;
     private final HeartReadService heartReadService;
 
+    @Transactional
     public void toggleBoard(Long memberId, Long boardId) {
         Member member = memberService.getMemberId(memberId);
         Board board = boardService.getBoardId(boardId);
 
+        //exists
         SaveBoard existsSaveBoard = saveBoardRepository.findByMemberAndBoard(member, board);
         if (existsSaveBoard == null) {
             saveBoard(member, board);
