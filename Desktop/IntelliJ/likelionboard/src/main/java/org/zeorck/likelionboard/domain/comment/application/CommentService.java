@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
+import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
 import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentDeleteForbidden;
@@ -14,6 +15,7 @@ import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSave
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
+import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 
 import java.util.List;
 
@@ -22,12 +24,12 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final MemberService memberService;
-    private final BoardService boardService;
+    private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
     public void save(Long memberId, Long boardId, CommentSaveResponse commentSaveResponse) {
-        Member member = memberService.getMemberId(memberId);
-        Board board = boardService.getBoardId(boardId);
+        Member member = memberRepository.findById(memberId);
+        Board board = boardRepository.findByBoardId(boardId);
 
         Comment comment = Comment.builder()
                 .member(member)
@@ -40,7 +42,7 @@ public class CommentService {
 
     @Transactional
     public void update(Long memberId, Long commentId, CommentUpdateResponse commentUpdateResponse) {
-        Member member = memberService.getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
         Comment comment = commentRepository.findById(commentId);
 
         validateUpdateForbidden(comment, member);
@@ -49,7 +51,7 @@ public class CommentService {
     }
 
     public void delete(Long memberId, Long commentId) {
-        Member member = memberService.getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
         Comment comment = commentRepository.findById(commentId);
 
         validateDeleteForbidden(comment, member);
@@ -59,7 +61,7 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public List<CommentInfoResponse> getCommentsByBoardId(Long boardId) {
-        Board board = boardService.getBoardId(boardId);
+        Board board = boardRepository.findByBoardId(boardId);
         List<Comment> comments = commentRepository.findByBoard(board);
 
         return comments.stream()
