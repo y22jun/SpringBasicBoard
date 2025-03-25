@@ -37,12 +37,14 @@ public class Board extends BaseTimeEntity {
         this.views = views;
     }
 
-    public void updateTitle(String title) {
-        this.title = title;
-    }
+    public void updateBoard(BoardUpdateResponse boardUpdateResponse) {
+        if (boardUpdateResponse.title() != null) {
+            this.title = boardUpdateResponse.title();
+        }
 
-    public void updateContent(String content) {
-        this.content = content;
+        if (boardUpdateResponse.content() != null) {
+            this.content = boardUpdateResponse.content();
+        }
     }
 
 }

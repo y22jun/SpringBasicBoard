@@ -45,14 +45,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
         validateUpdateForbidden(board, member);
 
-        //entity에서 검증을 해보자
-        if (boardUpdateResponse.title() != null) {
-            board.updateTitle(boardUpdateResponse.title());
-        }
-
-        if (boardUpdateResponse.content() != null) {
-            board.updateContent(boardUpdateResponse.content());
-        }
+        board.updateBoard(boardUpdateResponse);
     }
 
     @Transactional
