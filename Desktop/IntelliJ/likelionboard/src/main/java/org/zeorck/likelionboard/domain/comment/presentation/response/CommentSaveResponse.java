@@ -1,4 +1,9 @@
 package org.zeorck.likelionboard.domain.comment.presentation.response;
 
-public record CommentSaveResponse(String content) {
+import jakarta.validation.constraints.NotBlank;
+
+public record CommentSaveResponse(
+        @NotBlank(message = "댓글을 입력해주세요.")
+        String content
+) {
 }

@@ -3,6 +3,7 @@ package org.zeorck.likelionboard.domain.comment.presentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class CommentController {
     public ResponseEntity<?> save(
             @MemberId Long memberId,
             @PathVariable("boardId") Long boardId,
-            @RequestBody CommentSaveResponse commentSaveResponse) {
+            @Valid @RequestBody CommentSaveResponse commentSaveResponse) {
         commentService.save(memberId, boardId, commentSaveResponse);
         return new ResponseEntity<>(commentSaveResponse, HttpStatus.CREATED);
     }
