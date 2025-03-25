@@ -47,4 +47,8 @@ public class Board extends BaseTimeEntity {
         }
     }
 
+    public void incrementViews(int views) {
+        this.views++;
+    }
+
 }

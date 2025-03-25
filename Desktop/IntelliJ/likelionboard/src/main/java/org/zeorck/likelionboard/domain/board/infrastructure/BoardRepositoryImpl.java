@@ -6,9 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotFoundException;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -35,8 +32,8 @@ public class BoardRepositoryImpl implements BoardRepository {
     }
 
     @Override
-    public int updateViews(Long id) {
-        return boardJpaRepository.updateViews(id);
+    public void updateViews(Long id) {
+        boardJpaRepository.updateViews(id);
     }
 
 }

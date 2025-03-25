@@ -57,11 +57,10 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    //view관련 메서드 따로 생성하자
-    @Transactional
-    public BoardInfoResponse getBoardInfo(Long id) {
-        Board board = getBoardId(id);
-        boardRepository.updateViews(id);
+    @Transactional(readOnly = true)
+    public BoardInfoResponse getBoardInfo(Long boardId) {
+        Board board = getBoardId(boardId);
+        increaseViewCount(boardId);
 
         int heartCount = heartReadService.getHeartCountByBoard(board);
 
@@ -80,6 +79,11 @@ public class BoardService {
                 .toList();
 
         return PageableResponse.of(pageable, boardResponses);
+    }
+
+    @Transactional
+    public void increaseViewCount(Long boardId) {
+        boardRepository.updateViews(boardId);
     }
 
     private Board getBoardId(Long boardId) {
