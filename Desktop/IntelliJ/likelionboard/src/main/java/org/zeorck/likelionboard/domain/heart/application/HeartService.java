@@ -50,9 +50,4 @@ public class HeartService {
         heartRepository.save(heart);
     }
 
-    @Transactional(readOnly = true)
-    public int getHeartCountByBoard(Board board) {
-        return heartRepository.countByBoardAndStatusTrue(board);
-    }
-
 }
