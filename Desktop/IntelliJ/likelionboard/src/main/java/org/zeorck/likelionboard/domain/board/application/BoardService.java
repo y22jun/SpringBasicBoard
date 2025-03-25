@@ -56,7 +56,7 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public BoardInfoResponse getBoardInfo(Long boardId) {
         Board board = getBoardId(boardId);
         increaseViewCount(boardId);
@@ -80,8 +80,7 @@ public class BoardService {
         return PageableResponse.of(pageable, boardResponses);
     }
 
-    @Transactional
-    public void increaseViewCount(Long boardId) {
+    private void increaseViewCount(Long boardId) {
         Board board = getBoardId(boardId);
 
         board.incrementViews(board.getViews());
