@@ -8,9 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
+import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
+import org.zeorck.likelionboard.domain.heart.infrastructure.HeartRepository;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
+import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 import org.zeorck.likelionboard.domain.saveboard.domain.SaveBoard;
 import org.zeorck.likelionboard.domain.saveboard.infrastructure.SaveBoardRepository;
 
@@ -21,14 +24,14 @@ import java.util.List;
 public class SaveBoardService {
 
     private final SaveBoardRepository saveBoardRepository;
-    private final MemberService memberService;
-    private final BoardService boardService;
-    private final HeartReadService heartReadService;
+    private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
+    private final HeartRepository heartRepository;
 
     @Transactional
     public void toggleBoard(Long memberId, Long boardId) {
-        Member member = memberService.getMemberId(memberId);
-        Board board = boardService.getBoardId(boardId);
+        Member member = memberRepository.findById(memberId);
+        Board board = boardRepository.findByBoardId(boardId);
 
         //exists
         SaveBoard existsSaveBoard = saveBoardRepository.findByMemberAndBoard(member, board);
@@ -55,14 +58,14 @@ public class SaveBoardService {
 
     @Transactional(readOnly = true)
     public PageableResponse<BoardInfoResponse> getSaveBoards(Long memberId, Pageable pageable) {
-        Member member = memberService.getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
 
         Page<SaveBoard> saveBoardPage = saveBoardRepository.findByMember(member, pageable);
 
         List<BoardInfoResponse> boardResponses = saveBoardPage.getContent().stream()
                 .map(saveBoard -> {
                     Board board = saveBoard.getBoard();
-                    int heartCount = heartReadService.getHeartCountByBoard(board);
+                    int heartCount = heartRepository.countByBoardAndStatusTrue(board);
                     return BoardInfoResponse.from(board, heartCount);
                 })
                 .toList();
