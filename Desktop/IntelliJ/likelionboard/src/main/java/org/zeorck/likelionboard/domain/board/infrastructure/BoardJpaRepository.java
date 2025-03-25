@@ -9,9 +9,4 @@ import org.zeorck.likelionboard.domain.board.domain.Board;
 
 public interface BoardJpaRepository extends JpaRepository<Board, Long> {
 
-    //TODO: 다른 방법으로도 구현해보기.
-    @Modifying
-    @Transactional
-    @Query("update Board b set b.views = b.views + 1 where b.id = :id")
-    void updateViews(@Param("id") Long id);
 }

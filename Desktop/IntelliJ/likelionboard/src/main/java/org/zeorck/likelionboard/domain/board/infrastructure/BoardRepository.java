@@ -14,6 +14,4 @@ public interface BoardRepository {
 
     Page<Board> findAll(Pageable pageable);
 
-    void updateViews(Long id);
-
 }
