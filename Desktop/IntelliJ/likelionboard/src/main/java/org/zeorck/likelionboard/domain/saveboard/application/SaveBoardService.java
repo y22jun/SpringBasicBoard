@@ -9,7 +9,6 @@ import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
-import org.zeorck.likelionboard.domain.heart.application.HeartReadService;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.saveboard.domain.SaveBoard;

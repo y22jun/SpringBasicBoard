@@ -13,9 +13,7 @@ import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateF
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
-import org.zeorck.likelionboard.domain.heart.application.HeartReadService;
 import org.zeorck.likelionboard.domain.heart.application.HeartService;
-import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 
