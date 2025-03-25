@@ -55,6 +55,7 @@ public class BoardService {
         }
     }
 
+    @Transactional
     public void delete(Long memberId, Long boardId) {
         Member member = memberRepository.findById(memberId);
         Board board = getBoardId(boardId);
