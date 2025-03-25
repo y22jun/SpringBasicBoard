@@ -16,6 +16,7 @@ import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateRe
 import org.zeorck.likelionboard.domain.heart.application.HeartReadService;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
+import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 
 import java.util.List;
 
@@ -24,11 +25,11 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final HeartReadService heartReadService;
 
     public void save(Long memberId, BoardSaveResponse boardSaveResponse) {
-        Member member = memberService.getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
         Board board = Board.builder()
                 .member(member)
                 .title(boardSaveResponse.title())
@@ -40,7 +41,7 @@ public class BoardService {
 
     @Transactional
     public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
-        Member member = memberService.getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
         Board board = getBoardId(boardId);
         validateUpdateForbidden(board, member);
 
@@ -55,7 +56,7 @@ public class BoardService {
     }
 
     public void delete(Long memberId, Long boardId) {
-        Member member = memberService.getMemberId(memberId);
+        Member member = memberRepository.findById(memberId);
         Board board = getBoardId(boardId);
         validateDeleteForbidden(board, member);
 
