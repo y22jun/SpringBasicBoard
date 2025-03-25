@@ -14,6 +14,7 @@ import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResp
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
 import org.zeorck.likelionboard.domain.heart.application.HeartReadService;
+import org.zeorck.likelionboard.domain.heart.application.HeartService;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
@@ -26,7 +27,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-    private final HeartReadService heartReadService;
+    private final HeartService heartService;
 
     public void save(Long memberId, BoardSaveResponse boardSaveResponse) {
         Member member = memberRepository.findById(memberId);
@@ -62,7 +63,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
         increaseViewCount(boardId);
 
-        int heartCount = heartReadService.getHeartCountByBoard(board);
+        int heartCount = heartService.getHeartCountByBoard(board);
 
         return BoardInfoResponse.from(board, heartCount);
     }
@@ -73,7 +74,7 @@ public class BoardService {
 
         List<BoardInfoResponse> boardResponses = boardPage.getContent().stream()
                 .map(board -> {
-                    int heartCount = heartReadService.getHeartCountByBoard(board);
+                    int heartCount = heartService.getHeartCountByBoard(board);
                     return BoardInfoResponse.from(board, heartCount);
                 })
                 .toList();
