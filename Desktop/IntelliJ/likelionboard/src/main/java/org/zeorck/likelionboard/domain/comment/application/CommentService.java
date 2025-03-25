@@ -45,7 +45,6 @@ public class CommentService {
 
         validateUpdateForbidden(comment, member);
 
-        //null 체크 추가
         comment.updateContent(commentUpdateResponse.content());
     }
 

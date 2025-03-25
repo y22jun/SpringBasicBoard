@@ -30,7 +30,8 @@ public class CommentController {
     public ResponseEntity<?> save(
             @MemberId Long memberId,
             @PathVariable("boardId") Long boardId,
-            @Valid @RequestBody CommentSaveResponse commentSaveResponse) {
+            @Valid @RequestBody CommentSaveResponse commentSaveResponse
+    ) {
         commentService.save(memberId, boardId, commentSaveResponse);
         return new ResponseEntity<>(commentSaveResponse, HttpStatus.CREATED);
     }
@@ -41,7 +42,8 @@ public class CommentController {
     public ResponseEntity<?> update(
             @MemberId Long memberId,
             @PathVariable("commentId") Long commentId,
-            @RequestBody CommentUpdateResponse commentUpdateResponse) {
+            @Valid @RequestBody CommentUpdateResponse commentUpdateResponse
+    ) {
         commentService.update(memberId, commentId, commentUpdateResponse);
         return new ResponseEntity<>(commentUpdateResponse, HttpStatus.OK);
     }
@@ -51,7 +53,8 @@ public class CommentController {
     @DeleteMapping("/{commentId}")
     public ResponseEntity<?> delete(
             @MemberId Long memberId,
-            @PathVariable("commentId") Long commentId) {
+            @PathVariable("commentId") Long commentId
+    ) {
         commentService.delete(memberId, commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -60,7 +63,8 @@ public class CommentController {
     @ApiResponse(responseCode = "200")
     @GetMapping("/{boardId}")
     public ResponseEntity<List<CommentInfoResponse>> getCommentsByBoardId(
-            @PathVariable("boardId") Long boardId) {
+            @PathVariable("boardId") Long boardId
+    ) {
         List<CommentInfoResponse> comments = commentService.getCommentsByBoardId(boardId);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
