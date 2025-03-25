@@ -38,7 +38,6 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickname;
     }
 
-
     public void checkPassword(PasswordEncoder passwordEncoder, String password) {
         if (!passwordEncoder.matches(password, this.password)) {
             throw new EmailOrPasswordNotInvalidException();

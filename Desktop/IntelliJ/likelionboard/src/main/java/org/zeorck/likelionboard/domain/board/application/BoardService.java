@@ -82,8 +82,7 @@ public class BoardService {
         return PageableResponse.of(pageable, boardResponses);
     }
 
-    //private으로 사용하자
-    public Board getBoardId(Long boardId) {
+    private Board getBoardId(Long boardId) {
         return boardRepository.findByBoardId(boardId);
     }
 
