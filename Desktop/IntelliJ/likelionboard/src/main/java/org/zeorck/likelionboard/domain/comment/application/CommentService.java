@@ -42,20 +42,22 @@ public class CommentService {
 
     @Transactional
     public void update(Long memberId, Long commentId, CommentUpdateResponse commentUpdateResponse) {
-        Member member = getMemberId(memberId);
         Comment comment = getCommentId(commentId);
 
-        validateUpdateForbidden(comment, member);
+        Long commentMemberId = comment.getMember().getId();
+
+        validateUpdateForbidden(commentMemberId, memberId);
 
         comment.updateContent(commentUpdateResponse.content());
     }
 
     @Transactional
     public void delete(Long memberId, Long commentId) {
-        Member member = getMemberId(memberId);
         Comment comment = getCommentId(commentId);
 
-        validateDeleteForbidden(comment, member);
+        Long commentMemberId = comment.getMember().getId();
+
+        validateDeleteForbidden(commentMemberId, memberId);
 
         commentRepository.delete(comment);
     }
@@ -82,15 +84,14 @@ public class CommentService {
         return commentRepository.findById(commentId);
     }
 
-    //member를 넘겨줄 이유가 없다.
-    private void validateUpdateForbidden(Comment comment, Member member) {
-        if (!comment.getMember().getId().equals(member.getId())) {
+    private void validateUpdateForbidden(Long commentMemberId, Long memberId) {
+        if (!commentMemberId.equals(memberId)) {
             throw new CommentUpdateForbidden();
         }
     }
 
-    private void validateDeleteForbidden(Comment comment, Member member) {
-        if (!comment.getMember().getId().equals(member.getId())) {
+    private void validateDeleteForbidden(Long commentMemberId, Long memberId) {
+        if (!commentMemberId.equals(memberId)) {
             throw new CommentDeleteForbidden();
         }
     }
