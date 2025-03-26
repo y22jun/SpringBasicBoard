@@ -33,9 +33,9 @@ public class SaveBoardService {
         Member member = memberRepository.findById(memberId);
         Board board = boardRepository.findByBoardId(boardId);
 
-        //exists
-        SaveBoard existsSaveBoard = saveBoardRepository.findByMemberAndBoard(member, board);
-        if (existsSaveBoard == null) {
+        boolean existsSaveBoard = saveBoardRepository.existsByMemberAndBoard(member, board);
+
+        if (!existsSaveBoard) {
             saveBoard(member, board);
         } else {
             deleteSaveBoard(member, board);

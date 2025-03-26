@@ -34,4 +34,9 @@ public class SaveBoardRepositoryImpl implements SaveBoardRepository {
         return saveBoardJpaRepository.findByMember(member, pageable);
     }
 
+    @Override
+    public boolean existsByMemberAndBoard(Member member, Board board) {
+        return saveBoardJpaRepository.existsByMemberAndBoard(member, board);
+    }
+
 }

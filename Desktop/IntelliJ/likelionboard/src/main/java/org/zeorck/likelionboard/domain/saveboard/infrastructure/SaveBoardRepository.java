@@ -14,6 +14,8 @@ public interface SaveBoardRepository {
 
     void deleteByMemberAndBoard(Member member, Board board);
 
+    boolean existsByMemberAndBoard(Member member, Board board);
+
     Page<SaveBoard> findByMember(Member member, Pageable pageable);
 
 }
