@@ -12,4 +12,6 @@ public interface HeartRepository {
 
     int countByBoardAndStatusTrue(Board board);
 
+    boolean existsByMemberAndBoard(Member member, Board board);
+
 }

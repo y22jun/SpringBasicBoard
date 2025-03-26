@@ -25,14 +25,13 @@ public class HeartService {
         Board board = boardRepository.findByBoardId(boardId);
         Member member = memberRepository.findById(memberId);
 
-        //exists
-        //JPA 메서드마다 성능차이 알아보기
-        Heart existingHeart = heartRepository.findByMemberAndBoard(member, board);
+        Heart heart = heartRepository.findByMemberAndBoard(member, board);
+        boolean existingHeart = heartRepository.existsByMemberAndBoard(member, board);
 
-        if (existingHeart == null) {
+        if (!existingHeart) {
             addHeart(memberId, boardId);
         } else {
-            existingHeart.updateStatus(!existingHeart.isStatus());
+            heart.updateStatus(!heart.isStatus());
         }
 
     }

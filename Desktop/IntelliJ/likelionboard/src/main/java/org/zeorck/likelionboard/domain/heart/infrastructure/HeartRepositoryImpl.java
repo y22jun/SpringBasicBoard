@@ -27,4 +27,9 @@ public class HeartRepositoryImpl implements HeartRepository{
         return heartJpeRepository.countByBoardAndStatusTrue(board);
     }
 
+    @Override
+    public boolean existsByMemberAndBoard(Member member, Board board) {
+        return heartJpeRepository.existsByMemberAndBoard(member, board);
+    }
+
 }
