@@ -50,6 +50,7 @@ public class CommentService {
         comment.updateContent(commentUpdateResponse.content());
     }
 
+    @Transactional
     public void delete(Long memberId, Long commentId) {
         Member member = memberRepository.findById(memberId);
         Comment comment = commentRepository.findById(commentId);
