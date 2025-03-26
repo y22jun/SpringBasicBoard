@@ -40,18 +40,20 @@ public class BoardService {
 
     @Transactional
     public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
-        Member member = memberRepository.findById(memberId);
         Board board = getBoardId(boardId);
-        validateUpdateForbidden(board, member);
+
+        Long boardMemberId = board.getMember().getId();
+        validateUpdateForbidden(boardMemberId, memberId);
 
         board.updateBoard(boardUpdateResponse);
     }
 
     @Transactional
     public void delete(Long memberId, Long boardId) {
-        Member member = getMemberId(memberId);
         Board board = getBoardId(boardId);
-        validateDeleteForbidden(board, member);
+
+        Long boardMemberId = board.getMember().getId();
+        validateDeleteForbidden(boardMemberId, memberId);
 
         boardRepository.delete(board);
     }
@@ -94,14 +96,14 @@ public class BoardService {
         return boardRepository.findByBoardId(boardId);
     }
 
-    private void validateUpdateForbidden(Board board, Member member) {
-        if (!board.getMember().getId().equals(member.getId())) {
+    private void validateUpdateForbidden(Long boardMemberId, Long memberId) {
+        if (!boardMemberId.equals(memberId)) {
             throw new BoardUpdateForbidden();
         }
     }
 
-    private void validateDeleteForbidden(Board board, Member member) {
-        if (!board.getMember().getId().equals(member.getId())) {
+    private void validateDeleteForbidden(Long boardMemberId, Long memberId) {
+        if (!boardMemberId.equals(memberId)) {
             throw new BoardDeleteForbidden();
         }
     }
