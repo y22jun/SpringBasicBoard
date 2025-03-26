@@ -13,7 +13,6 @@ import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateF
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
-import org.zeorck.likelionboard.domain.heart.application.HeartService;
 import org.zeorck.likelionboard.domain.heart.infrastructure.HeartRepository;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
@@ -50,7 +49,7 @@ public class BoardService {
 
     @Transactional
     public void delete(Long memberId, Long boardId) {
-        Member member = memberRepository.findById(memberId);
+        Member member = getMemberId(memberId);
         Board board = getBoardId(boardId);
         validateDeleteForbidden(board, member);
 
@@ -85,6 +84,10 @@ public class BoardService {
         Board board = getBoardId(boardId);
 
         board.incrementViews(board.getViews());
+    }
+
+    private Member getMemberId(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
     private Board getBoardId(Long boardId) {
