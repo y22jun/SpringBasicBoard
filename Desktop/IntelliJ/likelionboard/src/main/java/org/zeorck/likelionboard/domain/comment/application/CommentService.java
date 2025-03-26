@@ -28,8 +28,8 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
     public void save(Long memberId, Long boardId, CommentSaveResponse commentSaveResponse) {
-        Member member = memberRepository.findById(memberId);
-        Board board = boardRepository.findByBoardId(boardId);
+        Member member = getMemberId(memberId);
+        Board board = getBoardId(boardId);
 
         Comment comment = Comment.builder()
                 .member(member)
@@ -42,8 +42,8 @@ public class CommentService {
 
     @Transactional
     public void update(Long memberId, Long commentId, CommentUpdateResponse commentUpdateResponse) {
-        Member member = memberRepository.findById(memberId);
-        Comment comment = commentRepository.findById(commentId);
+        Member member = getMemberId(memberId);
+        Comment comment = getCommentId(commentId);
 
         validateUpdateForbidden(comment, member);
 
@@ -52,8 +52,8 @@ public class CommentService {
 
     @Transactional
     public void delete(Long memberId, Long commentId) {
-        Member member = memberRepository.findById(memberId);
-        Comment comment = commentRepository.findById(commentId);
+        Member member = getMemberId(memberId);
+        Comment comment = getCommentId(commentId);
 
         validateDeleteForbidden(comment, member);
 
@@ -62,12 +62,24 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public List<CommentInfoResponse> getCommentsByBoardId(Long boardId) {
-        Board board = boardRepository.findByBoardId(boardId);
+        Board board = getBoardId(boardId);
         List<Comment> comments = commentRepository.findByBoard(board);
 
         return comments.stream()
                 .map(CommentInfoResponse::from)
                 .toList();
+    }
+
+    private Member getMemberId(Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    private Board getBoardId(Long boardId) {
+        return boardRepository.findByBoardId(boardId);
+    }
+
+    private Comment getCommentId(Long commentId) {
+        return commentRepository.findById(commentId);
     }
 
     //member를 넘겨줄 이유가 없다.
