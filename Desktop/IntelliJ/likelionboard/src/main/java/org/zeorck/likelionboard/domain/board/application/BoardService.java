@@ -28,7 +28,7 @@ public class BoardService {
     private final HeartRepository heartRepository;
 
     public void save(Long memberId, BoardSaveResponse boardSaveResponse) {
-        Member member = memberRepository.findById(memberId);
+        Member member = getMemberId(memberId);
         Board board = Board.builder()
                 .member(member)
                 .title(boardSaveResponse.title())
@@ -63,7 +63,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
         increaseViewCount(boardId);
 
-        int heartCount = heartRepository.countByBoardAndStatusTrue(board);
+        int heartCount = getHeartCount(board);
 
         return BoardInfoResponse.from(board, heartCount);
     }
@@ -74,7 +74,7 @@ public class BoardService {
 
         List<BoardInfoResponse> boardResponses = boardPage.getContent().stream()
                 .map(board -> {
-                    int heartCount = heartRepository.countByBoardAndStatusTrue(board);
+                    int heartCount = getHeartCount(board);
                     return BoardInfoResponse.from(board, heartCount);
                 })
                 .toList();
@@ -94,6 +94,10 @@ public class BoardService {
 
     private Board getBoardId(Long boardId) {
         return boardRepository.findByBoardId(boardId);
+    }
+
+    private int getHeartCount(Board board) {
+        return heartRepository.countByBoardAndStatusTrue(board);
     }
 
     private void validateUpdateForbidden(Long boardMemberId, Long memberId) {
