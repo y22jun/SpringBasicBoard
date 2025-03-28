@@ -30,7 +30,7 @@ public class SaveBoardService {
 
     @Transactional
     public void toggleBoard(Long memberId, Long boardId) {
-        Member member = memberRepository.findById(memberId);
+        Member member = getMemberId(memberId);
         Board board = boardRepository.findByBoardId(boardId);
 
         boolean existsSaveBoard = saveBoardRepository.existsByMemberAndBoard(member, board);
@@ -58,7 +58,7 @@ public class SaveBoardService {
 
     @Transactional(readOnly = true)
     public PageableResponse<BoardInfoResponse> getSaveBoards(Long memberId, Pageable pageable) {
-        Member member = memberRepository.findById(memberId);
+        Member member = getMemberId(memberId);
 
         Page<SaveBoard> saveBoardPage = saveBoardRepository.findByMember(member, pageable);
 
@@ -71,6 +71,10 @@ public class SaveBoardService {
                 .toList();
 
         return PageableResponse.of(pageable, boardResponses);
+    }
+
+    private Member getMemberId(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
 }
