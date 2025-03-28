@@ -31,7 +31,7 @@ public class SaveBoardService {
     @Transactional
     public void toggleBoard(Long memberId, Long boardId) {
         Member member = getMemberId(memberId);
-        Board board = boardRepository.findByBoardId(boardId);
+        Board board = getBoardId(boardId);
 
         boolean existsSaveBoard = saveBoardRepository.existsByMemberAndBoard(member, board);
 
@@ -75,6 +75,10 @@ public class SaveBoardService {
 
     private Member getMemberId(Long memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    private Board getBoardId(Long boardId) {
+        return boardRepository.findByBoardId(boardId);
     }
 
 }
