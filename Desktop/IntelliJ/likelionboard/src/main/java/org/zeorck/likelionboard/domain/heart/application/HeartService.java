@@ -22,8 +22,8 @@ public class HeartService {
 
     @Transactional
     public void toggleHeart(Long boardId, Long memberId) {
-        Board board = boardRepository.findByBoardId(boardId);
-        Member member = memberRepository.findById(memberId);
+        Member member = getMemberId(memberId);
+        Board board = getBoardId(boardId);
 
         Heart heart = heartRepository.findByMemberAndBoard(member, board);
         boolean existingHeart = heartRepository.existsByMemberAndBoard(member, board);
@@ -37,8 +37,8 @@ public class HeartService {
     }
 
     private void addHeart(Long memberId, Long boardId) {
-        Member member = memberRepository.findById(memberId);
-        Board board = boardRepository.findByBoardId(boardId);
+        Member member = getMemberId(memberId);
+        Board board = getBoardId(boardId);
 
         Heart heart = Heart.builder()
                 .member(member)
@@ -47,6 +47,14 @@ public class HeartService {
                 .build();
 
         heartRepository.save(heart);
+    }
+
+    private Member getMemberId(Long memberId) {
+        return memberRepository.findById(memberId);
+    }
+
+    private Board getBoardId(Long boardId) {
+        return boardRepository.findByBoardId(boardId);
     }
 
 }
