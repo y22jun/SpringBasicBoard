@@ -62,7 +62,8 @@ public class BoardController {
     public ResponseEntity<?> update(
             @PathVariable Long boardId,
             @MemberId Long memberId,
-            @RequestBody BoardUpdateResponse boardUpdateResponse) {
+            @RequestBody BoardUpdateResponse boardUpdateResponse
+    ) {
         boardService.update(memberId, boardId, boardUpdateResponse);
         return new ResponseEntity<>(boardUpdateResponse, HttpStatus.OK);
     }
