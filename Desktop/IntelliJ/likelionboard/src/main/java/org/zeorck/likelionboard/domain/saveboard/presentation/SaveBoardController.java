@@ -25,7 +25,10 @@ public class SaveBoardController {
     @Operation(summary = "게시글 북마크", description = "토글 방식으로 게시글 북마크 기능을 수행합니다.")
     @ApiResponse(responseCode = "200")
     @PostMapping("/{boardId}")
-    public ResponseEntity<?> toggleSaveBoard(@MemberId Long memberId,@PathVariable Long boardId) {
+    public ResponseEntity<?> toggleSaveBoard(
+            @MemberId Long memberId,
+            @PathVariable Long boardId
+    ) {
         saveBoardService.toggleBoard(memberId, boardId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
