@@ -32,7 +32,6 @@ public class AuthService {
         Member member = memberRepository.findByEmail(email);
         member.checkPassword(passwordEncoder, password);
 
-//        return generateLoginResult(member);
         LoginResult result = generateLoginResult(member);
 
         tokenInjector.injectTokensToCookie(result, response);
