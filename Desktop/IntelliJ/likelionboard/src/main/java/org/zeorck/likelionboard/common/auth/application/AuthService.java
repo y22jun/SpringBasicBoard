@@ -45,10 +45,11 @@ public class AuthService {
     }
 
     private LoginResult generateLoginResult(Member member) {
-        String accessToken = tokenGenerator.generateAccessToken(member.getId());
-        String refreshToken = tokenGenerator.generateRefreshToken(member.getId());
+        Long memberId = member.getId();
+        String accessToken = tokenGenerator.generateAccessToken(memberId);
+        String refreshToken = tokenGenerator.generateRefreshToken(memberId);
 
-        RefreshToken refreshTokenEntity = refreshTokenRepository.findByMemberId(member.getId())
+        RefreshToken refreshTokenEntity = refreshTokenRepository.findByMemberId(memberId)
                 .orElse(RefreshToken.of(member.getId(), refreshToken, tokenProperties.expirationTime().refreshToken()));
 
         refreshTokenEntity.rotate(refreshToken);
