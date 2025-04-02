@@ -83,7 +83,7 @@ public class SecurityConfig {
         );
     }
 
-    private void configureLogin(HttpSecurity http) throws Exception {
+    private void configureLogin(HttpSecurity http) {
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
