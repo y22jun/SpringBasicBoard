@@ -45,7 +45,7 @@ public class BoardService {
         Long boardMemberId = board.getMember().getId();
         validateUpdateForbidden(boardMemberId, memberId);
 
-        board.updateBoard(boardUpdateResponse);
+        board.updateBoard(boardUpdateResponse.title(), boardUpdateResponse.content());
     }
 
     @Transactional

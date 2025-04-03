@@ -43,4 +43,5 @@ public class Member extends BaseTimeEntity {
             throw new EmailOrPasswordNotInvalidException();
         }
     }
+
 }

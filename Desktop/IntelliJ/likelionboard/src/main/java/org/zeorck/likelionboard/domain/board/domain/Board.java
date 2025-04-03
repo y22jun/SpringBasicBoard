@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.zeorck.likelionboard.common.domain.BaseTimeEntity;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 
 @Entity
@@ -37,13 +36,13 @@ public class Board extends BaseTimeEntity {
         this.views = views;
     }
 
-    public void updateBoard(BoardUpdateResponse boardUpdateResponse) {
-        if (boardUpdateResponse.title() != null) {
-            this.title = boardUpdateResponse.title();
+    public void updateBoard(String title, String content) {
+        if (title!= null) {
+            this.title = title;
         }
 
-        if (boardUpdateResponse.content() != null) {
-            this.content = boardUpdateResponse.content();
+        if (content != null) {
+            this.content = content;
         }
     }
 
