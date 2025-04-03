@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.auth.application.AuthService;
 import org.zeorck.likelionboard.common.auth.domain.jwt.LoginResult;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberLoginRequest;
+import org.zeorck.likelionboard.domain.member.presentation.response.MemberLoginResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class LoginController {
     @Operation(summary = "로그인", description = "로그인 기능을 수행합니다.")
     @ApiResponse(responseCode = "200")
     @PostMapping("/login")
-    public ResponseEntity<LoginResult> login(@RequestBody MemberLoginRequest memberLoginRequest, HttpServletResponse response) {
-        LoginResult result = authService.login(memberLoginRequest.email(), memberLoginRequest.password(), response);
+    public ResponseEntity<LoginResult> login(@RequestBody MemberLoginResponse memberLoginResponse, HttpServletResponse response) {
+        LoginResult result = authService.login(memberLoginResponse.email(), memberLoginResponse.password(), response);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
