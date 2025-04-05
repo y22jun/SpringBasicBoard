@@ -43,7 +43,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
 
         Long boardMemberId = board.getMember().getId();
-        validateUpdateForbidden(boardMemberId, memberId);
+        board.validateUpdateForbidden(boardMemberId, memberId);
 
         board.updateBoard(boardUpdateResponse.title(), boardUpdateResponse.content());
     }
@@ -53,7 +53,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
 
         Long boardMemberId = board.getMember().getId();
-        validateDeleteForbidden(boardMemberId, memberId);
+        board.validateDeleteForbidden(boardMemberId, memberId);
 
         boardRepository.delete(board);
     }
@@ -98,18 +98,6 @@ public class BoardService {
 
     private int getHeartCount(Board board) {
         return heartRepository.countByBoardAndStatusTrue(board);
-    }
-
-    private void validateUpdateForbidden(Long boardMemberId, Long memberId) {
-        if (!boardMemberId.equals(memberId)) {
-            throw new BoardUpdateForbidden();
-        }
-    }
-
-    private void validateDeleteForbidden(Long boardMemberId, Long memberId) {
-        if (!boardMemberId.equals(memberId)) {
-            throw new BoardDeleteForbidden();
-        }
     }
 
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.zeorck.likelionboard.common.domain.BaseTimeEntity;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 
 @Entity
@@ -48,6 +50,18 @@ public class Board extends BaseTimeEntity {
 
     public void incrementViews(int views) {
         this.views++;
+    }
+
+    public void validateUpdateForbidden(Long boardMemberId, Long memberId) {
+        if (!boardMemberId.equals(memberId)) {
+            throw new BoardUpdateForbidden();
+        }
+    }
+
+    public void validateDeleteForbidden(Long boardMemberId, Long memberId) {
+        if (!boardMemberId.equals(memberId)) {
+            throw new BoardDeleteForbidden();
+        }
     }
 
 }
