@@ -42,8 +42,7 @@ public class BoardService {
     public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
         Board board = getBoardId(boardId);
 
-        Long boardMemberId = board.getMember().getId();
-        board.validateUpdateForbidden(boardMemberId, memberId);
+        board.validateUpdateForbidden(memberId);
 
         board.updateBoard(boardUpdateResponse.title(), boardUpdateResponse.content());
     }
@@ -52,8 +51,7 @@ public class BoardService {
     public void delete(Long memberId, Long boardId) {
         Board board = getBoardId(boardId);
 
-        Long boardMemberId = board.getMember().getId();
-        board.validateDeleteForbidden(boardMemberId, memberId);
+        board.validateDeleteForbidden(memberId);
 
         boardRepository.delete(board);
     }

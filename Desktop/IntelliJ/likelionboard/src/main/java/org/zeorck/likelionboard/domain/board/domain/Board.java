@@ -52,14 +52,14 @@ public class Board extends BaseTimeEntity {
         this.views++;
     }
 
-    public void validateUpdateForbidden(Long boardMemberId, Long memberId) {
-        if (!boardMemberId.equals(memberId)) {
+    public void validateUpdateForbidden(Long memberId) {
+        if (!this.member.getId().equals(memberId)) {
             throw new BoardUpdateForbidden();
         }
     }
 
-    public void validateDeleteForbidden(Long boardMemberId, Long memberId) {
-        if (!boardMemberId.equals(memberId)) {
+    public void validateDeleteForbidden(Long memberId) {
+        if (!this.member.getId().equals(memberId)) {
             throw new BoardDeleteForbidden();
         }
     }
