@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.zeorck.likelionboard.common.domain.BaseTimeEntity;
 import org.zeorck.likelionboard.domain.board.domain.Board;
+import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentDeleteForbidden;
+import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentUpdateForbidden;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 
 @Entity
@@ -37,6 +39,18 @@ public class Comment extends BaseTimeEntity {
 
     public void updateContent(String content) {
         this.content = content;
+    }
+
+    public void validateUpdateForbidden(Long commentMemberId, Long memberId) {
+        if (!commentMemberId.equals(memberId)) {
+            throw new CommentUpdateForbidden();
+        }
+    }
+
+    public void validateDeleteForbidden(Long commentMemberId, Long memberId) {
+        if (!commentMemberId.equals(memberId)) {
+            throw new CommentDeleteForbidden();
+        }
     }
 
 }

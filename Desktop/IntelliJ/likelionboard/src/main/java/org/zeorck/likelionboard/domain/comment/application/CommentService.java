@@ -46,7 +46,7 @@ public class CommentService {
 
         Long commentMemberId = comment.getMember().getId();
 
-        validateUpdateForbidden(commentMemberId, memberId);
+        comment.validateUpdateForbidden(commentMemberId, memberId);
 
         comment.updateContent(commentUpdateResponse.content());
     }
@@ -57,7 +57,7 @@ public class CommentService {
 
         Long commentMemberId = comment.getMember().getId();
 
-        validateDeleteForbidden(commentMemberId, memberId);
+        comment.validateDeleteForbidden(commentMemberId, memberId);
 
         commentRepository.delete(comment);
     }
@@ -82,18 +82,6 @@ public class CommentService {
 
     private Comment getCommentId(Long commentId) {
         return commentRepository.findById(commentId);
-    }
-
-    private void validateUpdateForbidden(Long commentMemberId, Long memberId) {
-        if (!commentMemberId.equals(memberId)) {
-            throw new CommentUpdateForbidden();
-        }
-    }
-
-    private void validateDeleteForbidden(Long commentMemberId, Long memberId) {
-        if (!commentMemberId.equals(memberId)) {
-            throw new CommentDeleteForbidden();
-        }
     }
 
 }
