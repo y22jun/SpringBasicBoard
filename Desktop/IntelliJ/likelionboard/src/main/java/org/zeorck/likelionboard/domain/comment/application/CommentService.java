@@ -44,9 +44,7 @@ public class CommentService {
     public void update(Long memberId, Long commentId, CommentUpdateResponse commentUpdateResponse) {
         Comment comment = getCommentId(commentId);
 
-        Long commentMemberId = comment.getMember().getId();
-
-        comment.validateUpdateForbidden(commentMemberId, memberId);
+        comment.validateUpdateForbidden(memberId);
 
         comment.updateContent(commentUpdateResponse.content());
     }
@@ -55,9 +53,7 @@ public class CommentService {
     public void delete(Long memberId, Long commentId) {
         Comment comment = getCommentId(commentId);
 
-        Long commentMemberId = comment.getMember().getId();
-
-        comment.validateDeleteForbidden(commentMemberId, memberId);
+        comment.validateDeleteForbidden(memberId);
 
         commentRepository.delete(comment);
     }
