@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
-import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
-import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
