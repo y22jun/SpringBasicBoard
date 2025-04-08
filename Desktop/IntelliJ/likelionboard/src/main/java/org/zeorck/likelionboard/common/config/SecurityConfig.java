@@ -14,6 +14,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsUtils;
 import org.zeorck.likelionboard.common.auth.infrastructure.SecurityProperties;
 import org.zeorck.likelionboard.common.auth.presentation.filter.JwtTokenFilter;
+import org.zeorck.likelionboard.common.auth.presentation.provider.CustomAuthenticationProvider;
 
 import java.util.List;
 

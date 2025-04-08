@@ -15,6 +15,7 @@ import org.zeorck.likelionboard.common.auth.infrastructure.jwt.TokenProperties;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
+import org.zeorck.likelionboard.domain.member.presentation.response.MemberLoginResponse;
 
 @Service
 @RequiredArgsConstructor

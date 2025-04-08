@@ -42,7 +42,9 @@ public class BoardService {
 
         board.validateUpdateForbidden(memberId);
 
-        board.updateBoard(boardUpdateResponse.title(), boardUpdateResponse.content());
+        board.updateTitle(boardUpdateResponse.title());
+        board.updateContent(boardUpdateResponse.content());
+
     }
 
     @Transactional
