@@ -3,6 +3,8 @@ package org.zeorck.likelionboard.domain.board.presentation.response;
 import lombok.Builder;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 
+import java.time.LocalDate;
+
 @Builder
 public record BoardInfoResponse(
         Long boardId,
@@ -10,7 +12,8 @@ public record BoardInfoResponse(
         String title,
         String content,
         int views,
-        int heartCount
+        int heartCount,
+        LocalDate createdAt
 ) {
     public static BoardInfoResponse from(Board board, int heartCount) {
         return new BoardInfoResponse(
@@ -19,7 +22,8 @@ public record BoardInfoResponse(
                 board.getTitle(),
                 board.getContent(),
                 board.getViews(),
-                heartCount
+                heartCount,
+                board.getCreatedAt().toLocalDate()
         );
     }
 }
