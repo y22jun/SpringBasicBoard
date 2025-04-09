@@ -31,4 +31,9 @@ public class BoardRepositoryImpl implements BoardRepository {
         return boardJpaRepository.findAll(pageable);
     }
 
+    @Override
+    public void incrementViewCount(Long boardId) {
+        boardJpaRepository.incrementViewCount(boardId);
+    }
+
 }

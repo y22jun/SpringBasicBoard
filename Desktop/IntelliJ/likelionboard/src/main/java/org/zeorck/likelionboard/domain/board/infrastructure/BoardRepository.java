@@ -14,4 +14,6 @@ public interface BoardRepository {
 
     Page<Board> findAll(Pageable pageable);
 
+    void incrementViewCount(Long boardId);
+
 }

@@ -62,8 +62,8 @@ public class BoardService {
 
     @Transactional
     public BoardInfoResponse getBoardInfo(Long boardId) {
+        boardRepository.incrementViewCount(boardId);
         Board board = getBoardId(boardId);
-        increaseViewCount(boardId);
 
         int heartCount = getHeartCount(board);
 
@@ -82,13 +82,6 @@ public class BoardService {
                 .toList();
 
         return PageableResponse.of(pageable, boardResponses);
-    }
-
-    //jpa 락악락 거는거 한번해보자, 좋아요도 jpa에서 처리하자
-    private void increaseViewCount(Long boardId) {
-        Board board = getBoardId(boardId);
-
-        board.incrementViews(board.getViews());
     }
 
     private Member getMemberId(Long memberId) {
