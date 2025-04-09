@@ -41,17 +41,4 @@ public class Comment extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void validateUpdateForbidden(Long memberId) {
-        if (!this.member.getId().equals(memberId)) {
-            throw new CommentUpdateForbidden();
-        }
-    }
-
-    public void validateDeleteForbidden(Long memberId) {
-        if (!this.member.getId().equals(memberId)) {
-            throw new CommentDeleteForbidden();
-        }
-    }
-
-
 }
