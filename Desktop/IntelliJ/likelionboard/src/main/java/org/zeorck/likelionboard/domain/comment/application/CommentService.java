@@ -8,6 +8,7 @@ import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
 import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentNotForbiddenException;
+import org.zeorck.likelionboard.domain.comment.presentation.request.CommentSaveRequest;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
@@ -24,17 +25,21 @@ public class CommentService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 
-    public void save(Long memberId, Long boardId, CommentSaveResponse commentSaveResponse) {
+    public CommentSaveResponse save(Long memberId, Long boardId, CommentSaveRequest commentSaveRequest) {
         Member member = getMemberId(memberId);
         Board board = getBoardId(boardId);
 
         Comment comment = Comment.builder()
                 .member(member)
                 .board(board)
-                .content(commentSaveResponse.content())
+                .content(commentSaveRequest.content())
                 .build();
 
         commentRepository.save(comment);
+
+        return CommentSaveResponse.builder()
+                .commentId(comment.getId())
+                .build();
     }
 
     @Transactional

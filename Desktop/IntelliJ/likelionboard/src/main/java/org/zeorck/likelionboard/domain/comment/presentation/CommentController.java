@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.comment.application.CommentService;
+import org.zeorck.likelionboard.domain.comment.presentation.request.CommentSaveRequest;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
@@ -27,12 +28,12 @@ public class CommentController {
     @Operation(summary = "댓글 저장", description = "특정 게시글 안에 댓글을 저장합니다.")
     @ApiResponse(responseCode = "201")
     @PostMapping("/{boardId}")
-    public ResponseEntity<?> save(
+    public ResponseEntity<CommentSaveResponse> save(
             @MemberId Long memberId,
             @PathVariable("boardId") Long boardId,
-            @Valid @RequestBody CommentSaveResponse commentSaveResponse
-    ) {
-        commentService.save(memberId, boardId, commentSaveResponse);
+            @Valid @RequestBody CommentSaveRequest commentSaveRequest
+            ) {
+        CommentSaveResponse commentSaveResponse = commentService.save(memberId, boardId, commentSaveRequest);
         return new ResponseEntity<>(commentSaveResponse, HttpStatus.CREATED);
     }
 
