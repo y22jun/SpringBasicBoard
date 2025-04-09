@@ -1,4 +1,4 @@
-package org.zeorck.likelionboard.domain.member.presentation.request;
+package org.zeorck.likelionboard.domain.member.presentation.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

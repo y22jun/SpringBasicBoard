@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
-import org.zeorck.likelionboard.domain.member.presentation.request.MemberNicknameUpdateRequest;
-import org.zeorck.likelionboard.domain.member.presentation.request.MemberSaveRequest;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
+import org.zeorck.likelionboard.domain.member.presentation.dto.request.MemberNicknameUpdateRequest;
+import org.zeorck.likelionboard.domain.member.presentation.dto.request.MemberSaveRequest;
+import org.zeorck.likelionboard.domain.member.presentation.dto.response.MemberNicknameUpdateResponse;
+import org.zeorck.likelionboard.domain.member.presentation.dto.response.MemberSaveResponse;
 
 @RestController
 @RequestMapping("/members")

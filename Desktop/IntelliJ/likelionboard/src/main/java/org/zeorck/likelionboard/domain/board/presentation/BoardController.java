@@ -53,7 +53,7 @@ public class BoardController {
     public ResponseEntity<BoardSaveResponse> save(
             @MemberId Long memberId,
             @Valid @RequestBody BoardSaveRequest boardSaveRequest
-            ) {
+    ) {
         BoardSaveResponse boardSaveResponse = boardService.save(memberId, boardSaveRequest);
         return new ResponseEntity<>(boardSaveResponse, HttpStatus.CREATED);
     }

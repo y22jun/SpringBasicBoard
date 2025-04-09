@@ -8,10 +8,10 @@ import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 import org.zeorck.likelionboard.domain.member.presentation.exception.EmailAlreadyExistsException;
 import org.zeorck.likelionboard.domain.member.presentation.exception.NicknameAlreadyExistsException;
-import org.zeorck.likelionboard.domain.member.presentation.request.MemberNicknameUpdateRequest;
-import org.zeorck.likelionboard.domain.member.presentation.request.MemberSaveRequest;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
+import org.zeorck.likelionboard.domain.member.presentation.dto.request.MemberNicknameUpdateRequest;
+import org.zeorck.likelionboard.domain.member.presentation.dto.request.MemberSaveRequest;
+import org.zeorck.likelionboard.domain.member.presentation.dto.response.MemberNicknameUpdateResponse;
+import org.zeorck.likelionboard.domain.member.presentation.dto.response.MemberSaveResponse;
 
 @Service
 @RequiredArgsConstructor
