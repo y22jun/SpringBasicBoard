@@ -10,6 +10,7 @@ import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotForbiddenException;
 import org.zeorck.likelionboard.domain.board.presentation.request.BoardSaveRequest;
+import org.zeorck.likelionboard.domain.board.presentation.request.BoardUpdateRequest;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -43,15 +44,18 @@ public class BoardService {
     }
 
     @Transactional
-    public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
+    public BoardUpdateResponse update(Long memberId, Long boardId, BoardUpdateRequest boardUpdateRequest) {
         Board board = getBoardId(boardId);
 
         Long boardMemberId = board.getMember().getId();
         validateForbidden(memberId, boardMemberId);
 
-        board.updateTitle(boardUpdateResponse.title());
-        board.updateContent(boardUpdateResponse.content());
+        board.updateTitle(boardUpdateRequest.title());
+        board.updateContent(boardUpdateRequest.content());
 
+        return BoardUpdateResponse.builder()
+                .boardId(boardId)
+                .build();
     }
 
     @Transactional

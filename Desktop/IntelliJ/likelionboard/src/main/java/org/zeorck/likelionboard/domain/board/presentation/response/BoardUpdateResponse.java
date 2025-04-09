@@ -1,7 +1,9 @@
 package org.zeorck.likelionboard.domain.board.presentation.response;
 
+import lombok.Builder;
+
+@Builder
 public record BoardUpdateResponse(
-        String title,
-        String content
+        Long boardId
 ) {
 }

@@ -14,6 +14,7 @@ import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.presentation.request.BoardSaveRequest;
+import org.zeorck.likelionboard.domain.board.presentation.request.BoardUpdateRequest;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -60,12 +61,12 @@ public class BoardController {
     @Operation(summary = "특정 게시글 수정", description = "특정 게시글을 수정합니다.")
     @ApiResponse(responseCode = "200")
     @PatchMapping("{boardId}")
-    public ResponseEntity<?> update(
+    public ResponseEntity<BoardUpdateResponse> update(
             @PathVariable Long boardId,
             @MemberId Long memberId,
-            @RequestBody BoardUpdateResponse boardUpdateResponse
+            @RequestBody BoardUpdateRequest boardUpdateRequest
     ) {
-        boardService.update(memberId, boardId, boardUpdateResponse);
+        BoardUpdateResponse boardUpdateResponse = boardService.update(memberId, boardId, boardUpdateRequest);
         return new ResponseEntity<>(boardUpdateResponse, HttpStatus.OK);
     }
 
