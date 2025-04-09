@@ -33,7 +33,7 @@ public class CommentController {
             @MemberId Long memberId,
             @PathVariable("boardId") Long boardId,
             @Valid @RequestBody CommentSaveRequest commentSaveRequest
-            ) {
+    ) {
         CommentSaveResponse commentSaveResponse = commentService.save(memberId, boardId, commentSaveRequest);
         return new ResponseEntity<>(commentSaveResponse, HttpStatus.CREATED);
     }
