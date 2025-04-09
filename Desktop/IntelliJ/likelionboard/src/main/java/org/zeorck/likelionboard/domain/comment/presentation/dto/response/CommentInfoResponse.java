@@ -1,4 +1,4 @@
-package org.zeorck.likelionboard.domain.comment.presentation.response;
+package org.zeorck.likelionboard.domain.comment.presentation.dto.response;
 
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 

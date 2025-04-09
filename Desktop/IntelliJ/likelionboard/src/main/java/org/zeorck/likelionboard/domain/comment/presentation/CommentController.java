@@ -10,11 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.comment.application.CommentService;
-import org.zeorck.likelionboard.domain.comment.presentation.request.CommentSaveRequest;
-import org.zeorck.likelionboard.domain.comment.presentation.request.CommentUpdateRequest;
-import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
-import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
-import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.request.CommentSaveRequest;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.request.CommentUpdateRequest;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.response.CommentInfoResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.response.CommentSaveResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.response.CommentUpdateResponse;
 
 import java.util.List;
 

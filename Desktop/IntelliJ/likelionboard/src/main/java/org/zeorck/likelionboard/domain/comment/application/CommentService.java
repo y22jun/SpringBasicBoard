@@ -8,11 +8,11 @@ import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
 import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentNotForbiddenException;
-import org.zeorck.likelionboard.domain.comment.presentation.request.CommentSaveRequest;
-import org.zeorck.likelionboard.domain.comment.presentation.request.CommentUpdateRequest;
-import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
-import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
-import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.request.CommentSaveRequest;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.request.CommentUpdateRequest;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.response.CommentInfoResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.response.CommentSaveResponse;
+import org.zeorck.likelionboard.domain.comment.presentation.dto.response.CommentUpdateResponse;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 
