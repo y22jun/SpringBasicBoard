@@ -8,6 +8,7 @@ import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 import org.zeorck.likelionboard.domain.member.presentation.exception.EmailAlreadyExistsException;
 import org.zeorck.likelionboard.domain.member.presentation.exception.NicknameAlreadyExistsException;
+import org.zeorck.likelionboard.domain.member.presentation.request.MemberNicknameUpdateRequest;
 import org.zeorck.likelionboard.domain.member.presentation.request.MemberSaveRequest;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
@@ -36,9 +37,13 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateNickname(Long memberId, MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
+    public MemberNicknameUpdateResponse updateNickname(Long memberId, MemberNicknameUpdateRequest memberNicknameUpdateRequest) {
         Member member = memberRepository.findById(memberId);
-        member.updateNickname(memberNicknameUpdateResponse.nickname());
+        member.updateNickname(memberNicknameUpdateRequest.nickname());
+
+        return MemberNicknameUpdateResponse.builder()
+                .memberId(member.getId())
+                .build();
     }
 
     private void validateSignUp(MemberSaveRequest memberSaveRequest) {

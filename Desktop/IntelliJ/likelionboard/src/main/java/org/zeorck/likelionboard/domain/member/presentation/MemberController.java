@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
+import org.zeorck.likelionboard.domain.member.presentation.request.MemberNicknameUpdateRequest;
 import org.zeorck.likelionboard.domain.member.presentation.request.MemberSaveRequest;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
@@ -33,10 +34,11 @@ public class MemberController {
     @Operation(summary = "멤버 닉네임 수정", description = "멤버 닉네임을 수정합니다.")
     @ApiResponse(responseCode = "200")
     @PutMapping
-    public ResponseEntity<?> update(
+    public ResponseEntity<MemberNicknameUpdateResponse> update(
             @MemberId Long memberId,
-            @Valid @RequestBody MemberNicknameUpdateResponse memberNicknameUpdateResponse) {
-        memberService.updateNickname(memberId, memberNicknameUpdateResponse);
+            @Valid @RequestBody MemberNicknameUpdateRequest memberNicknameUpdateRequest) {
+        MemberNicknameUpdateResponse memberNicknameUpdateResponse
+                = memberService.updateNickname(memberId, memberNicknameUpdateRequest);
         return new ResponseEntity<>(memberNicknameUpdateResponse, HttpStatus.OK);
     }
 
