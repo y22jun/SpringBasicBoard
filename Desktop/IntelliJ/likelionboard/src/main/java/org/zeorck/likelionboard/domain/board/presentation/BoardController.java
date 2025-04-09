@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
-import org.zeorck.likelionboard.domain.board.presentation.request.BoardSaveRequest;
-import org.zeorck.likelionboard.domain.board.presentation.request.BoardUpdateRequest;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
+import org.zeorck.likelionboard.domain.board.presentation.dto.request.BoardSaveRequest;
+import org.zeorck.likelionboard.domain.board.presentation.dto.request.BoardUpdateRequest;
+import org.zeorck.likelionboard.domain.board.presentation.dto.response.BoardInfoResponse;
+import org.zeorck.likelionboard.domain.board.presentation.dto.response.BoardSaveResponse;
+import org.zeorck.likelionboard.domain.board.presentation.dto.response.BoardUpdateResponse;
 
 @RestController
 @RequestMapping("/boards")

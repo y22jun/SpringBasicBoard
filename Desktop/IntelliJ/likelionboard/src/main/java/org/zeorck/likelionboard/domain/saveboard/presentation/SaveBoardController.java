@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.response.PageableResponse;
-import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
+import org.zeorck.likelionboard.domain.board.presentation.dto.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.saveboard.application.SaveBoardService;
 
 @RestController

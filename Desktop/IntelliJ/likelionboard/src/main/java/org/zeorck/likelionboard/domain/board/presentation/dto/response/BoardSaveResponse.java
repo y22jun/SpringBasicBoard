@@ -1,4 +1,4 @@
-package org.zeorck.likelionboard.domain.board.presentation.response;
+package org.zeorck.likelionboard.domain.board.presentation.dto.response;
 
 import lombok.Builder;
 

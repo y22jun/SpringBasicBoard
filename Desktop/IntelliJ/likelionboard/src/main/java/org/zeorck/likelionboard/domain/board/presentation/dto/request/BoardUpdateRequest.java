@@ -1,4 +1,4 @@
-package org.zeorck.likelionboard.domain.board.presentation.request;
+package org.zeorck.likelionboard.domain.board.presentation.dto.request;
 
 public record BoardUpdateRequest(
         String title,
