@@ -12,8 +12,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RequiredArgsConstructor
 public enum BoardExceptionCode implements ExceptionCode {
     BOARD_NOT_FOUND(NOT_FOUND, "해당 게시판을 찾을 수 없습니다."),
-    BOARD_UPDATE_FORBIDDEN(FORBIDDEN, "해당 게시판을 수정할 권한이 없습니다."),
-    BOARD_DELETE_FORBIDDEN(FORBIDDEN, "해당 게시글을 삭제할 권한이 없습니다."),
+    BOARD_NOT_FORBIDDEN(FORBIDDEN, "해당 게시판에 접근할 권한이 없습니다."),
     ;
 
     private final HttpStatus status;

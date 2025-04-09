@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.zeorck.likelionboard.common.domain.BaseTimeEntity;
-import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
-import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 
 @Entity

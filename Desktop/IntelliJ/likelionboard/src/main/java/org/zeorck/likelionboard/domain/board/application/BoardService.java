@@ -8,8 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
-import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
-import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotForbiddenException;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -43,7 +42,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
 
         Long boardMemberId = board.getMember().getId();
-        validateUpdateForbidden(memberId, boardMemberId);
+        validateForbidden(memberId, boardMemberId);
 
         board.updateTitle(boardUpdateResponse.title());
         board.updateContent(boardUpdateResponse.content());
@@ -55,7 +54,7 @@ public class BoardService {
         Board board = getBoardId(boardId);
 
         Long boardMemberId = board.getMember().getId();
-        validateDeleteForbidden(memberId, boardMemberId);
+        validateForbidden(memberId, boardMemberId);
 
         boardRepository.delete(board);
     }
@@ -96,15 +95,9 @@ public class BoardService {
         return heartRepository.countByBoardAndStatusTrue(board);
     }
 
-    private void validateUpdateForbidden(Long memberId, Long boardMemberId) {
+    private void validateForbidden(Long memberId, Long boardMemberId) {
         if (!boardMemberId.equals(memberId)) {
-            throw new BoardUpdateForbidden();
-        }
-    }
-
-    private void validateDeleteForbidden(Long memberId, Long boardMemberId) {
-        if (!boardMemberId.equals(memberId)) {
-            throw new BoardDeleteForbidden();
+            throw new BoardNotForbiddenException();
         }
     }
 
