@@ -26,9 +26,8 @@ public class HeartService {
         Board board = getBoardId(boardId);
 
         Heart heart = heartRepository.findByMemberAndBoard(member, board);
-        boolean existingHeart = heartRepository.existsByMemberAndBoard(member, board);
 
-        if (!existingHeart) {
+        if (heart == null) {
             addHeart(memberId, boardId);
         } else {
             heart.updateStatus(!heart.isStatus());
