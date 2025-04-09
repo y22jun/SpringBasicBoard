@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.application.BoardService;
+import org.zeorck.likelionboard.domain.board.presentation.request.BoardSaveRequest;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -48,11 +49,11 @@ public class BoardController {
     @Operation(summary = "게시글 저장", description = "게시글을 저장합니다.")
     @ApiResponse(responseCode = "201")
     @PostMapping
-    public ResponseEntity<?> save(
+    public ResponseEntity<BoardSaveResponse> save(
             @MemberId Long memberId,
-            @Valid @RequestBody BoardSaveResponse boardSaveResponse
-    ) {
-        boardService.save(memberId, boardSaveResponse);
+            @Valid @RequestBody BoardSaveRequest boardSaveRequest
+            ) {
+        BoardSaveResponse boardSaveResponse = boardService.save(memberId, boardSaveRequest);
         return new ResponseEntity<>(boardSaveResponse, HttpStatus.CREATED);
     }
 

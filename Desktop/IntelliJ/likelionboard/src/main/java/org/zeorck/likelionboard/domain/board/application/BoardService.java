@@ -9,6 +9,7 @@ import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.board.presentation.exception.BoardNotForbiddenException;
+import org.zeorck.likelionboard.domain.board.presentation.request.BoardSaveRequest;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -26,15 +27,19 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final HeartRepository heartRepository;
 
-    public void save(Long memberId, BoardSaveResponse boardSaveResponse) {
+    public BoardSaveResponse save(Long memberId, BoardSaveRequest boardSaveRequest) {
         Member member = getMemberId(memberId);
         Board board = Board.builder()
                 .member(member)
-                .title(boardSaveResponse.title())
-                .content(boardSaveResponse.content())
+                .title(boardSaveRequest.title())
+                .content(boardSaveRequest.content())
                 .build();
 
         boardRepository.save(board);
+
+        return BoardSaveResponse.builder()
+                .boardId(board.getId())
+                .build();
     }
 
     @Transactional
