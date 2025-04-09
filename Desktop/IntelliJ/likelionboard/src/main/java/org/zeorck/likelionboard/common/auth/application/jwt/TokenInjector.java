@@ -4,7 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.zeorck.likelionboard.common.auth.domain.jwt.LoginResult;
+import org.zeorck.likelionboard.common.auth.presentation.response.LoginResultResponse;
 import org.zeorck.likelionboard.common.auth.infrastructure.SecurityProperties;
 import org.zeorck.likelionboard.common.auth.infrastructure.jwt.TokenProperties;
 
@@ -18,7 +18,7 @@ public class TokenInjector {
     private final TokenProperties tokenProperties;
     private final SecurityProperties securityProperties;
 
-    public void injectTokensToCookie(LoginResult result, HttpServletResponse response) {
+    public void injectTokensToCookie(LoginResultResponse result, HttpServletResponse response) {
         int accessTokenMaxAge = (int)tokenProperties.expirationTime().accessToken() + 5;
         int refreshTokenMaxAge = (int)tokenProperties.expirationTime().refreshToken() + 5;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.common.auth.application.jwt.TokenInjector;
 import org.zeorck.likelionboard.common.auth.domain.RefreshToken;
-import org.zeorck.likelionboard.common.auth.domain.jwt.LoginResult;
+import org.zeorck.likelionboard.common.auth.presentation.response.LoginResultResponse;
 import org.zeorck.likelionboard.common.auth.domain.jwt.TokenGenerator;
 import org.zeorck.likelionboard.common.auth.domain.jwt.TokenResolver;
 import org.zeorck.likelionboard.common.auth.infrastructure.RefreshTokenRepository;
@@ -26,7 +26,7 @@ public class RefreshTokenService {
     private final TokenProperties tokenProperties;
 
     @Transactional
-    public LoginResult reissueBasedOnRefreshToken(HttpServletRequest request, HttpServletResponse response) {
+    public LoginResultResponse reissueBasedOnRefreshToken(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = tokenResolver.resolveRefreshTokenFromRequest(request)
                 .orElseThrow(AuthenticationRequiredException::new);
 
@@ -35,13 +35,13 @@ public class RefreshTokenService {
         return getReissuedTokenResult(response, savedRefreshToken);
     }
 
-    private LoginResult getReissuedTokenResult(HttpServletResponse response, RefreshToken savedRefreshToken) {
+    private LoginResultResponse getReissuedTokenResult(HttpServletResponse response, RefreshToken savedRefreshToken) {
         Long memberId = savedRefreshToken.getMemberId();
 
         String reissuedAccessToken = tokenGenerator.generateAccessToken(memberId);
         String rotatedRefreshToken = this.rotate(savedRefreshToken);
 
-        LoginResult loginResult = new LoginResult(
+        LoginResultResponse loginResult = new LoginResultResponse(
                 reissuedAccessToken, rotatedRefreshToken);
         tokenInjector.injectTokensToCookie(loginResult, response);
 

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.common.auth.application.AuthService;
-import org.zeorck.likelionboard.common.auth.domain.jwt.LoginResult;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberLoginResponse;
+import org.zeorck.likelionboard.common.auth.presentation.response.LoginResultResponse;
+import org.zeorck.likelionboard.common.auth.presentation.request.MemberLoginRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +27,10 @@ public class LoginController {
     @Operation(summary = "로그인", description = "로그인 기능을 수행합니다.")
     @ApiResponse(responseCode = "200")
     @PostMapping("/login")
-    public ResponseEntity<LoginResult> login(@RequestBody MemberLoginResponse memberLoginResponse, HttpServletResponse response) {
-        LoginResult result = authService.login(memberLoginResponse.email(), memberLoginResponse.password(), response);
+    public ResponseEntity<LoginResultResponse> login(
+            @Valid @RequestBody MemberLoginRequest memberLoginRequest,
+            HttpServletResponse response) {
+        LoginResultResponse result = authService.login(memberLoginRequest.email(), memberLoginRequest.password(), response);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

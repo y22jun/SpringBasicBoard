@@ -2,20 +2,17 @@ package org.zeorck.likelionboard.common.auth.application;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.common.auth.application.jwt.TokenInjector;
 import org.zeorck.likelionboard.common.auth.domain.RefreshToken;
-import org.zeorck.likelionboard.common.auth.domain.jwt.LoginResult;
+import org.zeorck.likelionboard.common.auth.presentation.response.LoginResultResponse;
 import org.zeorck.likelionboard.common.auth.domain.jwt.TokenGenerator;
 import org.zeorck.likelionboard.common.auth.infrastructure.RefreshTokenRepository;
 import org.zeorck.likelionboard.common.auth.infrastructure.jwt.TokenProperties;
-import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
-import org.zeorck.likelionboard.domain.member.presentation.response.MemberLoginResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -29,11 +26,11 @@ public class AuthService {
     private final TokenInjector tokenInjector;
 
     @Transactional
-    public LoginResult login(String email, String password, HttpServletResponse response) {
+    public LoginResultResponse login(String email, String password, HttpServletResponse response) {
         Member member = memberRepository.findByEmail(email);
         member.checkPassword(passwordEncoder, password);
 
-        LoginResult result = generateLoginResult(member);
+        LoginResultResponse result = generateLoginResult(member);
 
         tokenInjector.injectTokensToCookie(result, response);
 
@@ -45,7 +42,7 @@ public class AuthService {
         refreshTokenRepository.deleteByMemberId(memberId);
     }
 
-    private LoginResult generateLoginResult(Member member) {
+    private LoginResultResponse generateLoginResult(Member member) {
         Long memberId = member.getId();
         String accessToken = tokenGenerator.generateAccessToken(memberId);
         String refreshToken = tokenGenerator.generateRefreshToken(memberId);
@@ -56,6 +53,6 @@ public class AuthService {
         refreshTokenEntity.rotate(refreshToken);
         refreshTokenRepository.save(refreshTokenEntity);
 
-        return new LoginResult(accessToken, refreshToken);
+        return new LoginResultResponse(accessToken, refreshToken);
     }
 }
