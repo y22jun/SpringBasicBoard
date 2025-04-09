@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.comment.application.CommentService;
 import org.zeorck.likelionboard.domain.comment.presentation.request.CommentSaveRequest;
+import org.zeorck.likelionboard.domain.comment.presentation.request.CommentUpdateRequest;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
@@ -40,12 +41,12 @@ public class CommentController {
     @Operation(summary = "댓글 수정", description = "특정 게시글 안에 있는 댓글을 수정합니다.")
     @ApiResponse(responseCode = "200")
     @PutMapping("/{commentId}")
-    public ResponseEntity<?> update(
+    public ResponseEntity<CommentUpdateResponse> update(
             @MemberId Long memberId,
             @PathVariable("commentId") Long commentId,
-            @Valid @RequestBody CommentUpdateResponse commentUpdateResponse
+            @Valid @RequestBody CommentUpdateRequest commentUpdateRequest
     ) {
-        commentService.update(memberId, commentId, commentUpdateResponse);
+        CommentUpdateResponse commentUpdateResponse = commentService.update(memberId, commentId, commentUpdateRequest);
         return new ResponseEntity<>(commentUpdateResponse, HttpStatus.OK);
     }
 

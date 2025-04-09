@@ -9,6 +9,7 @@ import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
 import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentNotForbiddenException;
 import org.zeorck.likelionboard.domain.comment.presentation.request.CommentSaveRequest;
+import org.zeorck.likelionboard.domain.comment.presentation.request.CommentUpdateRequest;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
@@ -43,13 +44,17 @@ public class CommentService {
     }
 
     @Transactional
-    public void update(Long memberId, Long commentId, CommentUpdateResponse commentUpdateResponse) {
+    public CommentUpdateResponse update(Long memberId, Long commentId, CommentUpdateRequest commentUpdateRequest) {
         Comment comment = getCommentId(commentId);
 
         Long commentMemberId = comment.getMember().getId();
         validateForbidden(memberId, commentMemberId);
 
-        comment.updateContent(commentUpdateResponse.content());
+        comment.updateContent(commentUpdateRequest.content());
+
+        return CommentUpdateResponse.builder()
+                .commentId(comment.getId())
+                .build();
     }
 
     @Transactional
