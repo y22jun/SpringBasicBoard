@@ -38,7 +38,6 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    //validate 서비스에서 구현을 하자
     @Transactional
     public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
         Board board = getBoardId(boardId);
