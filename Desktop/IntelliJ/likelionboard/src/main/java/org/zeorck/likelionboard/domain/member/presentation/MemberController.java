@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zeorck.likelionboard.common.annotation.MemberId;
 import org.zeorck.likelionboard.domain.member.application.MemberService;
+import org.zeorck.likelionboard.domain.member.presentation.request.MemberSaveRequest;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
 
@@ -24,8 +25,8 @@ public class MemberController {
     @Operation(summary = "회원가입", description = "회원가입을 합니다.")
     @ApiResponse(responseCode = "201")
     @PostMapping
-    public ResponseEntity<?> save(@Valid @RequestBody MemberSaveResponse memberSaveResponse) {
-        memberService.save(memberSaveResponse);
+    public ResponseEntity<MemberSaveResponse> save(@Valid @RequestBody MemberSaveRequest memberSaveRequest) {
+        MemberSaveResponse memberSaveResponse = memberService.save(memberSaveRequest);
         return new ResponseEntity<>(memberSaveResponse, HttpStatus.CREATED);
     }
 

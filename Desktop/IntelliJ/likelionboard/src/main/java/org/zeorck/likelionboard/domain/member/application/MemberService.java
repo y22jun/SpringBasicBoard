@@ -8,6 +8,7 @@ import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 import org.zeorck.likelionboard.domain.member.presentation.exception.EmailAlreadyExistsException;
 import org.zeorck.likelionboard.domain.member.presentation.exception.NicknameAlreadyExistsException;
+import org.zeorck.likelionboard.domain.member.presentation.request.MemberSaveRequest;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberNicknameUpdateResponse;
 import org.zeorck.likelionboard.domain.member.presentation.response.MemberSaveResponse;
 
@@ -18,16 +19,20 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void save(MemberSaveResponse memberSaveResponse) {
-        validateSignUp(memberSaveResponse);
+    public MemberSaveResponse save(MemberSaveRequest memberSaveRequest) {
+        validateSignUp(memberSaveRequest);
 
         Member member = Member.builder()
-                .email(memberSaveResponse.email())
-                .password(passwordEncoder.encode(memberSaveResponse.password()))
-                .nickname(memberSaveResponse.nickname())
+                .email(memberSaveRequest.email())
+                .password(passwordEncoder.encode(memberSaveRequest.password()))
+                .nickname(memberSaveRequest.nickname())
                 .build();
 
         memberRepository.save(member);
+
+        return MemberSaveResponse.builder()
+                .memberId(member.getId())
+                .build();
     }
 
     @Transactional
@@ -36,9 +41,9 @@ public class MemberService {
         member.updateNickname(memberNicknameUpdateResponse.nickname());
     }
 
-    private void validateSignUp(MemberSaveResponse memberSaveResponse) {
-        validateEmail(memberSaveResponse.email());
-        validateNickname(memberSaveResponse.nickname());
+    private void validateSignUp(MemberSaveRequest memberSaveRequest) {
+        validateEmail(memberSaveRequest.email());
+        validateNickname(memberSaveRequest.nickname());
     }
 
     private void validateEmail(String email) {
