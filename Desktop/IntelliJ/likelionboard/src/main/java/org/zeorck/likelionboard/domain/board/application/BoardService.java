@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zeorck.likelionboard.common.response.PageableResponse;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardDeleteForbidden;
+import org.zeorck.likelionboard.domain.board.presentation.exception.BoardUpdateForbidden;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardInfoResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardSaveResponse;
 import org.zeorck.likelionboard.domain.board.presentation.response.BoardUpdateResponse;
@@ -36,11 +38,13 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    //validate 서비스에서 구현을 하자
     @Transactional
     public void update(Long memberId, Long boardId, BoardUpdateResponse boardUpdateResponse) {
         Board board = getBoardId(boardId);
 
-        board.validateUpdateForbidden(memberId);
+        Long boardMemberId = board.getMember().getId();
+        validateUpdateForbidden(memberId, boardMemberId);
 
         board.updateTitle(boardUpdateResponse.title());
         board.updateContent(boardUpdateResponse.content());
@@ -51,7 +55,8 @@ public class BoardService {
     public void delete(Long memberId, Long boardId) {
         Board board = getBoardId(boardId);
 
-        board.validateDeleteForbidden(memberId);
+        Long boardMemberId = board.getMember().getId();
+        validateDeleteForbidden(memberId, boardMemberId);
 
         boardRepository.delete(board);
     }
@@ -80,6 +85,7 @@ public class BoardService {
         return PageableResponse.of(pageable, boardResponses);
     }
 
+    //jpa 락악락 거는거 한번해보자, 좋아요도 jpa에서 처리하자
     private void increaseViewCount(Long boardId) {
         Board board = getBoardId(boardId);
 
@@ -96,6 +102,18 @@ public class BoardService {
 
     private int getHeartCount(Board board) {
         return heartRepository.countByBoardAndStatusTrue(board);
+    }
+
+    private void validateUpdateForbidden(Long memberId, Long boardMemberId) {
+        if (!boardMemberId.equals(memberId)) {
+            throw new BoardUpdateForbidden();
+        }
+    }
+
+    private void validateDeleteForbidden(Long memberId, Long boardMemberId) {
+        if (!boardMemberId.equals(memberId)) {
+            throw new BoardDeleteForbidden();
+        }
     }
 
 }

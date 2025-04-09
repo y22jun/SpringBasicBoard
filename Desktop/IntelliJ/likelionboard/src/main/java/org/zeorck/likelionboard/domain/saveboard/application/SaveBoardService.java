@@ -56,6 +56,7 @@ public class SaveBoardService {
         saveBoardRepository.deleteByMemberAndBoard(member, board);
     }
 
+    //쿼리 DSL로 한번 작성해보자
     @Transactional(readOnly = true)
     public PageableResponse<BoardInfoResponse> getSaveBoards(Long memberId, Pageable pageable) {
         Member member = getMemberId(memberId);
