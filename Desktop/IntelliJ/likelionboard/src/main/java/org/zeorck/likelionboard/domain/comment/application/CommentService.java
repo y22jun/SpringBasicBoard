@@ -3,17 +3,14 @@ package org.zeorck.likelionboard.domain.comment.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zeorck.likelionboard.domain.board.application.BoardService;
 import org.zeorck.likelionboard.domain.board.domain.Board;
 import org.zeorck.likelionboard.domain.board.infrastructure.BoardRepository;
 import org.zeorck.likelionboard.domain.comment.domain.Comment;
 import org.zeorck.likelionboard.domain.comment.infrastructure.CommentRepository;
-import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentDeleteForbidden;
-import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentUpdateForbidden;
+import org.zeorck.likelionboard.domain.comment.presentation.exception.CommentNotForbiddenException;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentInfoResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentSaveResponse;
 import org.zeorck.likelionboard.domain.comment.presentation.response.CommentUpdateResponse;
-import org.zeorck.likelionboard.domain.member.application.MemberService;
 import org.zeorck.likelionboard.domain.member.domain.Member;
 import org.zeorck.likelionboard.domain.member.infrastructure.MemberRepository;
 
@@ -45,7 +42,7 @@ public class CommentService {
         Comment comment = getCommentId(commentId);
 
         Long commentMemberId = comment.getMember().getId();
-        validateUpdateForbidden(memberId, commentMemberId);
+        validateForbidden(memberId, commentMemberId);
 
         comment.updateContent(commentUpdateResponse.content());
     }
@@ -55,7 +52,7 @@ public class CommentService {
         Comment comment = getCommentId(commentId);
 
         Long commentMemberId = comment.getMember().getId();
-        validateDeleteForbidden(memberId, commentMemberId);
+        validateForbidden(memberId, commentMemberId);
 
         commentRepository.delete(comment);
     }
@@ -82,15 +79,9 @@ public class CommentService {
         return commentRepository.findById(commentId);
     }
 
-    private void validateUpdateForbidden(Long memberId, Long commentMemberId) {
+    private void validateForbidden(Long memberId, Long commentMemberId) {
         if (!commentMemberId.equals(memberId)) {
-            throw new CommentUpdateForbidden();
-        }
-    }
-
-    private void validateDeleteForbidden(Long memberId, Long commentMemberId) {
-        if (!commentMemberId.equals(memberId)) {
-            throw new CommentDeleteForbidden();
+            throw new CommentNotForbiddenException();
         }
     }
 
