@@ -30,7 +30,9 @@ public class BoardController {
     @Operation(summary = "특정 게시글 조회", description = "특정 게시글을 조회합니다.")
     @ApiResponse(responseCode = "200")
     @GetMapping("/{boardId}")
-    public ResponseEntity<BoardInfoResponse> getBoard(@PathVariable Long boardId) {
+    public ResponseEntity<BoardInfoResponse> getBoard(
+            @PathVariable Long boardId
+    ) {
         BoardInfoResponse boardInfoResponse = boardService.getBoardInfo(boardId);
         return new ResponseEntity<>(boardInfoResponse, HttpStatus.OK);
     }
@@ -75,7 +77,8 @@ public class BoardController {
     @DeleteMapping("{boardId}")
     public ResponseEntity<?> delete(
             @PathVariable Long boardId,
-            @MemberId Long memberId) {
+            @MemberId Long memberId
+    ) {
         boardService.delete(memberId, boardId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
