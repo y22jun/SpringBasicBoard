@@ -43,7 +43,7 @@ public class RefreshToken extends BaseTimeEntity {
     }
 
     public void updateExpirationIfExpired(long expiredSeconds) {
-        if (expiredAt.isBefore(LocalDateTime.now())) {
+        if (isExpired()) {
             expiredAt = LocalDateTime.now().plusSeconds(expiredSeconds);
         }
     }
